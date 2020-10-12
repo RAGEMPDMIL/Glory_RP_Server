@@ -1,0 +1,26 @@
+{
+  "name": "dm_il_server",
+  "version": "0.1",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master",
+    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RAGEMPDMIL/DM_IL_Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RAGEMPDMIL/DM_IL_Server/issues"
+  },
+  "homepage": "https://github.com/RAGEMPDMIL/DM_IL_Server#readme"
+}
