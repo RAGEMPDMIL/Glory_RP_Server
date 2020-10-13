@@ -1,22 +1,18 @@
 const bcrypt = require('bcryptjs');
+const db = require('../modules/db');
 
+// Handles user attempt to login
 mp.events.add('server:login:userLogin', async (player ,username, password) => {
-    console.log(username, password);
-    let loggedAccount = mp.players.toArray().find(p => p.name === login);
+    let loggedAccount = mp.players.toArray().find(p => p.name === username);
     if(!loggedAccount) {
         try {
-            const res = await attemptLogin(username, password);
+            const res = attemptLogin(username, password);
             if(res){
                 console.log(`${username} has successfully logged in`);
-                if(player.idleKick) {
-                    clearTimeout(player.idleKick);
-                    player.idleKick = null;
-                }
-                mp.events.call('server:login:loadAccount', player, username); // TODO
+                mp.events.call('server:login:loadAccount', username); // TODO
                 player.call('client:auth:loginHandler', ['success']);
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo']);
-                resetTimeout(player);
             }
         } catch(e) { console.log(e) }
     } else {
@@ -25,29 +21,16 @@ mp.events.add('server:login:userLogin', async (player ,username, password) => {
 });
 
 function attemptLogin(username, password) {
-    return new Promise(async function(reslove, reject) {
+    return new Promise(function(resolve){
         try {
-            console.log(username, password);
-            await mp.db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username]).then(([rows]) => {
-                return rows;
-            }).then(function(result) {
-                if(result[0].length != 0) { //Account found
-                    result[0][0].password === password ? reslove(true) : reslove(false);
-                    // bcrypt.compare(password, result[0][0].password).then(function(res){
-                    //     res ? reslove(true) : reslove(false);
-                    // })
+            db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function(error, result, fields) {
+                console.log(result[0], result[0][0], result[0][0].password);
+                if(result[0].lenght != 0) {
+                    password === result[0][0].password ? resolve(true) : resolve(false);
                 } else {
-                    reslove(false);
+                    resolve(false);
                 }
-            });
-        } catch(e) { console.log(e) }
-    });
-}
-
-function resetTimeout(user){
-    if (user.idleKick) {
-        clearTimeout(user.idleKick);
-        user.idleKick = null;
-    }
-    timeoutKick(user);
+            })
+        } catch(e) { console.log(e); }
+    })
 }
