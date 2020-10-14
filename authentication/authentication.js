@@ -8,7 +8,11 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
     let loggedAccount = mp.players.toArray().find(p => p.name === username);
     if (!loggedAccount) {
         try {
+<<<<<<< HEAD
             const res = await attemptLogin(username, password)
+=======
+            const res = attemptLogin(username, password);
+>>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
             if (res) {
                 console.log(`${username} has successfully logged in`);
                 mp.events.call('server:login:loadAccount', username); // TODO
@@ -26,45 +30,44 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
 
 
 //Handles user attemo to register.
-mp.events.add('server:register:userRegister', async(player,username,password,email)=>{
-    try{
-        const res= attempRegistration(username,password,email);
-        res.then((value)=>{
-            if(value==="new account successfully created"){
+mp.events.add('server:register:userRegister', async (player, username, password, email) => {
+    try {
+        const res = attempRegistration(username, password, email);
+        res.then((value) => {
+            if (value === "new account successfully created") {
                 console.log(`${username} account has successfully created`);
                 player.call('client:auth:showLoginPage');
-            }
-            else{
+            } else {
                 console.log("the mail or username is already used");
-                player.call('client:auth:showRegisterPage');
             }
         })
-       
-    }catch(e){ console.log(e) }
+
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 
-function attempRegistration(username,password,email){
-    return new Promise(function(resolve){
-        try{
-            db.query('SELECT * FROM `accounts` WHERE `username`=? OR `email`=?',[username,email],function(error,result,fields){
-                if(result.length!=0){
+function attempRegistration(username, password, email) {
+    return new Promise(function (resolve) {
+        try {
+            db.query('SELECT * FROM `accounts` WHERE `username`=? OR `email`=?', [username, email], function (error, result, fields) {
+                if (result.length != 0) {
                     resolve("The account is already exist");
 
-                }
-                else{
+                } else {
                     bcrypt.hash(password, saltRounds, (err, hash) => {
-                        db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?' ,[username,hash,email],function(error, result, fields){
-                            if(error) console.log(error);
+                        db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?', [username, hash, email], function (error, result, fields) {
+                            if (error) console.log(error);
                             resolve("new account successfully created");
                         });
                     });
-                      
 
-                    
+
+
                 }
-                
-                
+
+
             })
         } catch (e) {
             console.log(e);
@@ -77,19 +80,30 @@ function attemptLogin(username, password) {
     return new Promise(function (resolve) {
         try {
             db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function (error, result, fields) {
+<<<<<<< HEAD
                 if (result[0].username.lenght != 0) {
                     password === result[0].password ? resolve(true) : resolve(false);
+=======
+                if (result[0].lenght != 0) {
+                    password === result[0][0].password ? resolve(true) : resolve(false);
+>>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
                 } else {
                     resolve(false);
                 }
             })
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         } catch(e) { console.log(e); }
      })
 =======
+=======
+>>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
         } catch (e) {
             console.log(e);
         }
     })
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
 }
