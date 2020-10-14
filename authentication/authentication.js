@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const saltRounds = 10;
+const connection = require('../modules/db');
 const db = require('../modules/db');
 
 // Handles user attempt to login
@@ -21,37 +23,46 @@ mp.events.add('server:login:userLogin', async (player ,username, password) => {
 });
 
 
-
-mp.events.add('client:register:SubmitRegistration', async(player,username,password,email)=>{
-    console.log("server got it and start work");
+//Handles user attemo to register.
+mp.events.add('server:register:userRegister', async(player,username,password,email)=>{
     try{
         const res= attempRegistration(username,password,email);
-        if(res==="new account successfully created"){
-            console.log(`${username} has successfully created`);
-            mp.events.call('client:auth:showLoginPage',['success']);
-        }
-        else{
-            player.call('client:auth:showRegisterPage', ['username or email already exist']);
-        }
+        res.then((value)=>{
+            if(value==="new account successfully created"){
+                console.log(`${username} account has successfully created`);
+                player.call('client:auth:showLoginPage');//not working
+            }
+            else{
+                console.log("the mail or username is already used");
+                player.call('client:auth:showRegisterPage');
+            }
+        })
        
-    }catch{
-
-    }
+    }catch(e){ console.log(e) }
 })
 
 
 function attempRegistration(username,password,email){
     return new Promise(function(resolve){
         try{
-            db.query('SELECT `username`,`password`,`email` FROM `accounts` WHERE `username`=? OR `email`=? ',[username,email],function(error,result,fields){
-                if(result[0].lenght!=0){
+            db.query('SELECT * FROM `accounts` WHERE `username`=? OR `email`=?',[username,email],function(error,result,fields){
+                if(result.length!=0){
                     resolve("The account is already exist");
+
                 }
                 else{
-                    resolve("new account successfully created");
-                    db.query('INSERT INTO `accounts` SET (`username`=?, `password`=?, `email`=?) VALUES' ([username],[password],[email]));
-                }
+                    bcrypt.hash(password, saltRounds, (err, hash) => {
+                        db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?' ,[username,hash,email],function(error, result, fields){
+                            if(error) console.log(error);
+                            resolve("new account successfully created");
+                        });
+                    });
+                      
 
+                    
+                }
+                
+                
             })
         }catch(e){console.log(e);}
 
@@ -69,5 +80,5 @@ function attemptLogin(username, password) {
                 }
             })
         } catch(e) { console.log(e); }
-    })
+     })
 }
