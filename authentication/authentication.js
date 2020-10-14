@@ -20,11 +20,48 @@ mp.events.add('server:login:userLogin', async (player ,username, password) => {
     }
 });
 
+
+
+mp.events.add('client:register:SubmitRegistration', async(player,username,password,email)=>{
+    console.log("server got it and start work");
+    try{
+        const res= attempRegistration(username,password,email);
+        if(res==="new account successfully created"){
+            console.log(`${username} has successfully created`);
+            mp.events.call('client:auth:showLoginPage',['success']);
+        }
+        else{
+            player.call('client:auth:showRegisterPage', ['username or email already exist']);
+        }
+       
+    }catch{
+
+    }
+})
+
+
+function attempRegistration(username,password,email){
+    return new Promise(function(resolve){
+        try{
+            db.query('SELECT `username`,`password`,`email` FROM `accounts` WHERE `username`=? OR `email`=? ',[username,email],function(error,result,fields){
+                if(result[0].lenght!=0){
+                    resolve("The account is already exist");
+                }
+                else{
+                    resolve("new account successfully created");
+                    db.query('INSERT INTO `accounts` SET (`username`=?, `password`=?, `email`=?) VALUES' ([username],[password],[email]));
+                }
+
+            })
+        }catch(e){console.log(e);}
+
+    }
+)}
+
 function attemptLogin(username, password) {
     return new Promise(function(resolve){
         try {
             db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function(error, result, fields) {
-                console.log(result[0], result[0][0], result[0][0].password);
                 if(result[0].lenght != 0) {
                     password === result[0][0].password ? resolve(true) : resolve(false);
                 } else {
