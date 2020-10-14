@@ -4,19 +4,21 @@ const connection = require('../modules/db');
 const db = require('../modules/db');
 
 // Handles user attempt to login
-mp.events.add('server:login:userLogin', async (player ,username, password) => {
+mp.events.add('server:login:userLogin', async (player, username, password) => {
     let loggedAccount = mp.players.toArray().find(p => p.name === username);
-    if(!loggedAccount) {
+    if (!loggedAccount) {
         try {
-            const res = attemptLogin(username, password);
-            if(res){
+            const res = await attemptLogin(username, password)
+            if (res) {
                 console.log(`${username} has successfully logged in`);
                 mp.events.call('server:login:loadAccount', username); // TODO
                 player.call('client:auth:loginHandler', ['success']);
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo']);
             }
-        } catch(e) { console.log(e) }
+        } catch (e) {
+            console.log(e)
+        }
     } else {
         player.call('client:auth:loginHandler', ['logged']);
     }
@@ -64,21 +66,30 @@ function attempRegistration(username,password,email){
                 
                 
             })
-        }catch(e){console.log(e);}
+        } catch (e) {
+            console.log(e);
+        }
 
-    }
-)}
+    })
+}
 
 function attemptLogin(username, password) {
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         try {
-            db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function(error, result, fields) {
-                if(result[0].lenght != 0) {
-                    password === result[0][0].password ? resolve(true) : resolve(false);
+            db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function (error, result, fields) {
+                if (result[0].username.lenght != 0) {
+                    password === result[0].password ? resolve(true) : resolve(false);
                 } else {
                     resolve(false);
                 }
             })
+<<<<<<< Updated upstream
         } catch(e) { console.log(e); }
      })
+=======
+        } catch (e) {
+            console.log(e);
+        }
+    })
+>>>>>>> Stashed changes
 }
