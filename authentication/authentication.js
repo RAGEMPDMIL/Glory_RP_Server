@@ -4,19 +4,21 @@ const connection = require('../modules/db');
 const db = require('../modules/db');
 
 // Handles user attempt to login
-mp.events.add('server:login:userLogin', async (player ,username, password) => {
+mp.events.add('server:login:userLogin', async (player, username, password) => {
     let loggedAccount = mp.players.toArray().find(p => p.name === username);
-    if(!loggedAccount) {
+    if (!loggedAccount) {
         try {
             const res = attemptLogin(username, password);
-            if(res){
+            if (res) {
                 console.log(`${username} has successfully logged in`);
                 mp.events.call('server:login:loadAccount', username); // TODO
                 player.call('client:auth:loginHandler', ['success']);
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo']);
             }
-        } catch(e) { console.log(e) }
+        } catch (e) {
+            console.log(e)
+        }
     } else {
         player.call('client:auth:loginHandler', ['logged']);
     }
@@ -24,61 +26,65 @@ mp.events.add('server:login:userLogin', async (player ,username, password) => {
 
 
 //Handles user attemo to register.
-mp.events.add('server:register:userRegister', async(player,username,password,email)=>{
-    try{
-        const res= attempRegistration(username,password,email);
-        res.then((value)=>{
-            if(value==="new account successfully created"){
+mp.events.add('server:register:userRegister', async (player, username, password, email) => {
+    try {
+        const res = attempRegistration(username, password, email);
+        res.then((value) => {
+            if (value === "new account successfully created") {
                 console.log(`${username} account has successfully created`);
                 player.call('client:auth:showLoginPage');
-            }
-            else{
+            } else {
                 console.log("the mail or username is already used");
                 player.call('client:auth:showRegisterPage');
             }
         })
-       
-    }catch(e){ console.log(e) }
+
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 
-function attempRegistration(username,password,email){
-    return new Promise(function(resolve){
-        try{
-            db.query('SELECT * FROM `accounts` WHERE `username`=? OR `email`=?',[username,email],function(error,result,fields){
-                if(result.length!=0){
+function attempRegistration(username, password, email) {
+    return new Promise(function (resolve) {
+        try {
+            db.query('SELECT * FROM `accounts` WHERE `username`=? OR `email`=?', [username, email], function (error, result, fields) {
+                if (result.length != 0) {
                     resolve("The account is already exist");
 
-                }
-                else{
+                } else {
                     bcrypt.hash(password, saltRounds, (err, hash) => {
-                        db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?' ,[username,hash,email],function(error, result, fields){
-                            if(error) console.log(error);
+                        db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?', [username, hash, email], function (error, result, fields) {
+                            if (error) console.log(error);
                             resolve("new account successfully created");
                         });
                     });
-                      
 
-                    
+
+
                 }
-                
-                
-            })
-        }catch(e){console.log(e);}
 
-    }
-)}
+
+            })
+        } catch (e) {
+            console.log(e);
+        }
+
+    })
+}
 
 function attemptLogin(username, password) {
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         try {
-            db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function(error, result, fields) {
-                if(result[0].lenght != 0) {
+            db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function (error, result, fields) {
+                if (result[0].lenght != 0) {
                     password === result[0][0].password ? resolve(true) : resolve(false);
                 } else {
                     resolve(false);
                 }
             })
-        } catch(e) { console.log(e); }
-     })
+        } catch (e) {
+            console.log(e);
+        }
+    })
 }
