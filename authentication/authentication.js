@@ -30,7 +30,7 @@ mp.events.add('server:register:userRegister', async(player,username,password,ema
         res.then((value)=>{
             if(value==="new account successfully created"){
                 console.log(`${username} account has successfully created`);
-                player.call('client:auth:showLoginPage');//not working
+                player.call('client:auth:showLoginPage');
             }
             else{
                 console.log("the mail or username is already used");
