@@ -13,6 +13,8 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
                 console.log(`${username} has successfully logged in`);
                 mp.events.call('server:login:loadAccount', username); // TODO
                 player.call('client:auth:loginHandler', ['success']);
+                player.name = `${username}`;
+                console.log(player.name);
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo']);
             }

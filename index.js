@@ -5,6 +5,8 @@ require('./modules/db');
 require('./authentication/authentication');
 require('./events');
 require('./commands');
+require('./Player/death/death');
+require('./chat/chat');
 
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
