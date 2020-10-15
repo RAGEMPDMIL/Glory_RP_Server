@@ -77,7 +77,10 @@ function attemptLogin(username, password) {
         try {
             db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function (error, result, fields) {
                 if (result[0].username.lenght != 0) {
-                    password === result[0].password ? resolve(true) : resolve(false);
+                    bcrypt.compare(password, result[0].password, function(err, result) {
+                        if(error) {console.log(error);}
+                         result ? resolve(true) : resolve(false);
+                    })
                 } else {
                     resolve(false);
                 }
