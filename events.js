@@ -8,7 +8,6 @@ mp.events.add('playerSpawn', player => {
 // - - - - - Death - - - - - //
 
 mp.events.add("playerDeath", (player) => {
-
     player.health = 100;
     player.armour = 70;
     let model = player.model

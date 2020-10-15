@@ -3,6 +3,8 @@ mp.events.delayInitialization = true; //  Setting this to true won't allow playe
 // Load up gamemode assets
 require('./modules/db');
 require('./authentication/authentication');
+require('./events');
+require('./commands');
 
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
