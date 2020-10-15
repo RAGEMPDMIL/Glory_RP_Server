@@ -8,11 +8,7 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
     let loggedAccount = mp.players.toArray().find(p => p.name === username);
     if (!loggedAccount) {
         try {
-<<<<<<< HEAD
             const res = await attemptLogin(username, password)
-=======
-            const res = attemptLogin(username, password);
->>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
             if (res) {
                 console.log(`${username} has successfully logged in`);
                 mp.events.call('server:login:loadAccount', username); // TODO
@@ -80,30 +76,12 @@ function attemptLogin(username, password) {
     return new Promise(function (resolve) {
         try {
             db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function (error, result, fields) {
-<<<<<<< HEAD
                 if (result[0].username.lenght != 0) {
                     password === result[0].password ? resolve(true) : resolve(false);
-=======
-                if (result[0].lenght != 0) {
-                    password === result[0][0].password ? resolve(true) : resolve(false);
->>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
                 } else {
                     resolve(false);
                 }
             })
-<<<<<<< HEAD
-<<<<<<< Updated upstream
         } catch(e) { console.log(e); }
      })
-=======
-=======
->>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
-        } catch (e) {
-            console.log(e);
-        }
-    })
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> fc5826dbd352df2ef3c062ab8b68627178f66cca
 }
