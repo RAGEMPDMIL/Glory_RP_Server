@@ -8,9 +8,6 @@ mp.events.add('playerSpawn', player => {
 // - - - - - Death - - - - - //
 
 mp.events.add("playerDeath", (player) => {
-
-    player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
-    mp.events.call('playerSpawn' , player);
     player.health = 100;
     player.armour = 70;
     let model = player.model
