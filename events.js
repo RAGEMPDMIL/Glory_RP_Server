@@ -10,7 +10,6 @@ mp.events.add('playerSpawn', player => {
 mp.events.add("playerDeath", (player) => {
     player.health = 100;
     player.armour = 70;
-    let model = player.model
     player.model = mp.joaat('g_m_y_mexgang_01');
     mp.game.graphics.startScreenEffect("DeathFailNeutralIn", 5000, false);
     //setTimeout(respawntime, 5000);
