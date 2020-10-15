@@ -85,6 +85,8 @@ function attemptLogin(username, password) {
                     resolve(false);
                 }
             })
-        } catch(e) { console.log(e); }
-     })
+        } catch (e) {
+            console.log(e);
+        }
+    })
 }

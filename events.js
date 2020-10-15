@@ -25,11 +25,6 @@ mp.events.add('playerJoin', (player) => {
 		player.outputChatBox(`!{#FB4E4E}Welcome to Israel DeathMatch Server !, ${player.name}!`);
 	}
 });
-// - - - - - Chat - - - - - //
-mp.events.add("playerChat", (player, text) =>
-{
-	mp.players.broadcast(`!{#3CFF33}(Global Chat) !{#ffffff}${player.name}: ${text}`);
-});
 // - - - - - Vehicles - - - - - //
 // - - - - - SQL Events - - - - - //
 
