@@ -1,15 +1,11 @@
 /* jshint -W104 */
 const bcrypt = require('bcryptjs');
 const db = require('../Modules/db');
-const nodemailer = require('nodemailer');
-
-
 
 // Handles user attempt to login
 mp.events.add('server:login:userLogin', async (player, username, password) => {
     let loggedAccount = await isOnline(username);
     if (loggedAccount === 'offline') {
-        console.log('offline');
         try {
             const res = await attemptLogin(username, password);
             console.log(res);
@@ -17,18 +13,17 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
                 console.log(`${username} has successfully logged in`);
                 //mp.events.call('server:login:loadAccount', username); // TODO
                 player.name = username;
-                player.call('client:auth:loginHandler', ['success'], username);
+                player.call('client:auth:loginHandler', ['success', username]);
             } else {
-                console.log('info');
-                player.call('client:auth:loginHandler', ['incorrectInfo'], username);
+                player.call('client:auth:loginHandler', ['incorrectInfo', username]);
             }
         } catch (e) {
             console.log(e);
         }
     } else if (loggedAccount === 'logged') {
-        player.call('client:auth:loginHandler', ['logged'], username);
+        player.call('client:auth:loginHandler', ['logged', username]);
     } else {
-        player.call('client:auth:loginHandler', ['doesntExist'], username);
+        player.call('client:auth:loginHandler', ['doesntExist', username]);
     }
 });
 
