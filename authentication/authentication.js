@@ -1,6 +1,7 @@
 /* jshint -W104 */
 const bcrypt = require('bcryptjs');
 const db = require('../Modules/db');
+const mailer = require('../modules/mailer');
 
 // Handles user attempt to login
 mp.events.add('server:login:userLogin', async (player, username, password) => {
@@ -34,6 +35,7 @@ mp.events.add('server:register:userRegister', async (player, username, password,
         if (res === "success") {
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
+            mp.events.call('server:auth:confirmationMail',email);
         } else {
             player.call('client:auth:registerHandler', ['userExists']);
         }
@@ -41,6 +43,24 @@ mp.events.add('server:register:userRegister', async (player, username, password,
         console.log(e);
     }
 });
+
+mp.events.add('server:auth:confirmationMail',(email)=>{
+    console.log(email);
+    var verificationCode=Math.floor(Math.random() * 100000) + 111111;
+    var mailOptions = {
+        from: 'ragempdmil@gmail.com',
+        to: email,
+        subject: 'Death Match Israel Server Verification',
+        text: `Welcome to Death Match Israel Server \n This is your verification code: ${verificationCode} \n The code is for 5 min dont waste your time.`
+      };
+      mailer.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+})
 
 // Handles user quit event
 mp.events.add('server:auth:onPlayerLogout', async (username) => {
