@@ -2,6 +2,7 @@
 const bcrypt = require('bcryptjs');
 const db = require('../Modules/db');
 const mailer = require('../modules/mailer');
+let verificationCode=0;
 
 // Handles user attempt to login
 mp.events.add('server:login:userLogin', async (player, username, password) => {
@@ -44,9 +45,10 @@ mp.events.add('server:register:userRegister', async (player, username, password,
     }
 });
 
+//Send varification code to the new account.
 mp.events.add('server:auth:confirmationMail',(email)=>{
     console.log(email);
-    var verificationCode=Math.floor(Math.random() * 100000) + 111111;
+    verificationCode=Math.floor(Math.random() * 100000) + 111111;
     var mailOptions = {
         from: 'ragempdmil@gmail.com',
         to: email,
@@ -60,6 +62,16 @@ mp.events.add('server:auth:confirmationMail',(email)=>{
           console.log('Email sent: ' + info.response);
         }
       });
+})
+mp.events.add('server:register:checkVarificationMode',(player,insertedCode)=>{
+    if(verificationCode==insertedCode)
+    {
+        player.call('client:auth:verificationHandler',[true]);
+    }
+    else
+    {
+        player.call('client:auth:verificationHandler',[false]);
+    }
 })
 
 // Handles user quit event
