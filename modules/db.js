@@ -4,7 +4,8 @@ const connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'deathmatch'
+    database : 'deathmatch',
+    port: 3308
 });
 
 connection.connect(function(e) {

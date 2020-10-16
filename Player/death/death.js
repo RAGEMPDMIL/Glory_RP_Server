@@ -1,5 +1,4 @@
-
-const db = require('../../modules/db');
+const db = require('../../Modules/db');
 let spawnPoints = require('../../spawn_points.json').SpawnPoints;
 
 //player death handler
