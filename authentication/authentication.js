@@ -5,7 +5,7 @@ const mailer = require('../modules/mailer');
 let verificationCode=0;
 
 // Handles user attempt to login
-mp.events.add('server:login:userLogin', async (player, username, password) => {
+mp.events.add('server:auth:userLogin', async (player, username, password) => {
     let loggedAccount = await isOnline(username);
     if (loggedAccount === 'offline') {
         try {
@@ -30,7 +30,7 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
 
 
 // Handles user attempt to register.
-mp.events.add('server:register:userRegister', async (player, username, password, email) => {
+mp.events.add('server:auth:userRegister', async (player, username, password, email) => {
     try {
         const res = await attempRegistration(username, password, email);
         if (res === "success") {

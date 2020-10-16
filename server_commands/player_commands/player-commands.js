@@ -32,12 +32,12 @@ mp.events.addCommand('kill', (player) => {
    player.outputChatBox(`!{#ff0000}: הרגת את עצמך`);
 });
 
-mp.events.addCommand('weapon', (player, fullText, weapon, ammo) => {
-   if(!weapon) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /weapon [model]');
-   let weaponHash = mp.joaat(weapon);
-   player.giveWeapon(weaponHash, parseInt(ammo) || 10000)
-   player.outputChatBox(`!{#ff0000}${weapon}(Bullets: ${ammo})!{#ffffff}: הבאת לעצמך נשק`);
-})
+// mp.events.addCommand('weapon', (player, fullText, weapon, ammo) => {
+//    if(!weapon) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /weapon [model]');
+//    let weaponHash = mp.joaat(weapon);
+//    player.giveWeapon(weaponHash, parseInt(ammo) || 10000)
+//    player.outputChatBox(`!{#ff0000}${weapon}(Bullets: ${ammo})!{#ffffff}: הבאת לעצמך נשק`);
+// })
 //-------------------- Vehicle & Weapons Commands -------------------- //
 mp.events.addCommand('vehicle', (player,vehicle) => {
    if(!vehicle) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /vehicle [model]');
@@ -83,5 +83,9 @@ mp.events.addCommand('mod', (player, _, modType) => {
       player.vehicle.setMod(parseInt(16), parseInt(4));
       player.outputChatBox(`!{#FF7D3C}Shields added to your vehicle`);    
    }
+});
+
+mp.events.addCommand('weapon', (player, fullText) => {
+   player.call('client:commands:getWeapon');
 });
 
