@@ -4,9 +4,9 @@ mp.events.delayInitialization = true; //  Setting this to true won't allow playe
 require('./Modules/db');
 require('./Authentication/authentication');
 require('./events');
-require('./commands/playercmds/commands');
-require('./commands/admincmds/commands');
-require('./Player/death/death');
+require('./Server Commands/Player Commands/player-commands');
+require('./Server Commands/Admin Commands/admin-commands');
+require('./Player/Death/player-death');
 require('./Chat/chat');
 
 // Wait for everything to load, then allow connections once all is loaded

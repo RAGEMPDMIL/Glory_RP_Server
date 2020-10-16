@@ -1,8 +1,6 @@
 /* jshint -W104 */
 const bcrypt = require('bcryptjs');
-const saltRounds = 10;
-const connection = require('../modules/db');
-const db = require('../modules/db');
+const db = require('../Modules/db');
 const nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
@@ -103,9 +101,9 @@ function attempRegistration(username, password, email) {
                 if (result.length != 0) {
                     resolve("userExists");
                 } else {
-                    bcrypt.hash(password, saltRounds, (err, hash) => {
+                    bcrypt.hash(password, 10, (err, hash) => {
                         db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?', [username, hash, email], function (error, result, fields) {
-                            if (error) console.log(error);
+                            if (error) { console.log(error); } 
                             resolve("success");
                         });
                     });

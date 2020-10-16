@@ -37,11 +37,11 @@ function playerDeathHandler(player,reson,killer) {
             deathcounter=result[0].death+1;
             db.query('UPDATE `accounts` SET death=? WHERE username=?',[deathcounter,deathName],function(error,result,fields){
                 if(error){console.log(error);}
-            })
+            });
         }
 
         
-    })
+    });
     player.health = 100;
     player.armour = 70;
     player.model = mp.joaat('g_m_y_mexgang_01');
