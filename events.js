@@ -16,16 +16,6 @@ mp.events.add('playerSpawn', player => {
     //setTimeout(respawntime, 5000);
 });*/
 // - - - - - Join - - - - - //
-mp.events.add('playerJoin', (player) => {
-
-    player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
-    player.health = 100;
-    player.armour = 70;
-
-    player => {
-		player.outputChatBox(`!{#FB4E4E}Welcome to Israel DeathMatch Server !, ${player.name}!`);
-	}
-});
 // - - - - - Vehicles - - - - - //
 // - - - - - SQL Events - - - - - //
 
