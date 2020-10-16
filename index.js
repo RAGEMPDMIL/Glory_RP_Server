@@ -4,15 +4,10 @@ mp.events.delayInitialization = true; //  Setting this to true won't allow playe
 require('./Modules/db');
 require('./Authentication/authentication');
 require('./events');
-//require('./commands/playercmds/commands');
-//require('./commands/admincmds/commands');
+require('./commands/playercmds/commands');
+require('./commands/admincmds/commands');
 require('./Player/death/death');
-<<<<<<< Updated upstream
-require('./chat/chat');
-// require('./commands/teleports/tele');
-=======
 require('./Chat/chat');
->>>>>>> Stashed changes
 
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
