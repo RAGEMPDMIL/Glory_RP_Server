@@ -2,15 +2,7 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const connection = require('../modules/db');
 const db = require('../modules/db');
-const nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth:{
-        user: 'ragempdmil@gmail.com',
-        pass: 'yuvalofek!'
-    }
-});
 
 
 // Handles user attempt to login
