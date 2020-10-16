@@ -1,13 +1,7 @@
 /* jshint -W104 */
 const bcrypt = require('bcryptjs');
-<<<<<<< HEAD
 const db = require('../Modules/db');
 const nodemailer = require('nodemailer');
-=======
-const saltRounds = 10;
-const connection = require('../modules/db');
-const db = require('../modules/db');
->>>>>>> a12d846af3b04cfc90f6718c5a69933e84542479
 
 
 
