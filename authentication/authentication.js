@@ -8,12 +8,11 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
     if (loggedAccount === 'offline') {
         try {
             const res = await attemptLogin(username, password);
-            console.log(res);
             if (res === 'success') {
-                console.log(`${username} has successfully logged in`);
-                //mp.events.call('server:login:loadAccount', username); // TODO
+                setUserStatus(username, 1);
                 player.name = username;
                 player.call('client:auth:loginHandler', ['success', username]);
+                console.log(`${username} has successfully logged in`);
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo', username]);
             }
@@ -42,6 +41,27 @@ mp.events.add('server:register:userRegister', async (player, username, password,
         console.log(e);
     }
 });
+
+// Handles user quit event
+mp.events.add('server:auth:onPlayerLogout', async (username) => {
+    const isPlayerOnline = await isOnline(username);
+    if(isPlayerOnline === 'logged') {
+        setUserStatus(username, 0);
+    }
+});
+
+function setUserStatus(username, status) {
+    return new Promise(function(resolve) {
+        try {
+            db.query('UPDATE `accounts` SET `online` = ? WHERE `username` = ?', [status, username], function(error, result, fields) {
+                if(error) {
+                    console.log(error);
+                }
+                resolve(null);
+            });
+        } catch(e) {console.log(e);}
+    });
+}
 
 function isOnline(username) {
     return new Promise(function (resolve) {
