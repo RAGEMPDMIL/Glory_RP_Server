@@ -2,6 +2,16 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const connection = require('../modules/db');
 const db = require('../modules/db');
+const nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user: 'ragempdmil@gmail.com',
+        pass: 'yuvalofek!'
+    }
+});
+
 
 // Handles user attempt to login
 mp.events.add('server:login:userLogin', async (player, username, password) => {
@@ -14,7 +24,6 @@ mp.events.add('server:login:userLogin', async (player, username, password) => {
                 mp.events.call('server:login:loadAccount', username); // TODO
                 player.call('client:auth:loginHandler', ['success']);
                 player.name = `${username}`;
-                console.log(player.name);
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo']);
             }
@@ -58,6 +67,20 @@ function attempRegistration(username, password, email) {
                         db.query('INSERT INTO `accounts` SET username = ?, password = ?, email = ?', [username, hash, email], function (error, result, fields) {
                             if (error) console.log(error);
                             resolve("new account successfully created");
+                            /*var mailOptions = {
+                                from: 'RageMPDMIL@gmail.com',//TODO
+                                to: `${email}`,
+                                subject: 'Sending Email using Node.js',
+                                text: 'That was easy!'
+                              };
+                              
+                              transporter.sendMail(mailOptions, function(error, info){
+                                if (error) {
+                                  console.log(error);
+                                } else {
+                                  console.log('Email sent: ' + info.response);
+                                }
+                              });*/
                         });
                     });
 
