@@ -66,7 +66,23 @@ mp.events.add('server:auth:confirmationMail',(email)=>{
 mp.events.add('server:register:checkVarificationMode',(player,insertedCode)=>{
     if(verificationCode==insertedCode)
     {
-        player.call('client:auth:verificationHandler',[true]);
+        db.query('SELECT * FROM `accounts` WHERE `id`=(SELECT max(`id`) FROM `accounts`)',function(error,user,fields){
+            try
+            {
+                console.log(user.username);
+                db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,user[0].username], function(error, result, fields) {
+                    if(error) {
+                        console.log(error);
+                    }
+                    else console.log("made it");
+                }); 
+            }
+            catch(e) {console.log(e);}
+            {
+                
+            }
+            player.call('client:auth:verificationHandler',[true]);
+        })
     }
     else
     {
