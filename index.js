@@ -11,7 +11,7 @@ require('./player/death/player-death');
 require('./chat/chat');
 require('./player/teleports/teleports');
 require('./bank-money-system/checkpoint');
-
+require('./bank-money-system/bankIcon');
 const server = require('./server_status/server');
 
 // Wait for everything to load, then allow connections once all is loaded

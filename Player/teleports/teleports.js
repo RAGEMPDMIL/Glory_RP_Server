@@ -1,9 +1,9 @@
 const teleport = {
     "bank":{
-      "x":-1579.756,
-      "y":-565.0661,
-      "z":108.523,
-      "ipl":"ex_sm_13_office_02b"
+      "x":232.7639,
+      "y":215.9510,
+      "z":106.2866,
+      "ipl":""
     },
     "bank2":{
         "x":-75.8466,
@@ -31,7 +31,7 @@ mp.events.addCommand("tp", (player, fullText,location) => {
     {
         player.outputChatBox(`!{#3399ff}${location} השתגרת בהצלחה ל`);
         player.position = new mp.Vector3(teleport[location].x,teleport[location].y,teleport[location].z);
-        player.call('loadInterior',[teleport[location].x,teleport[location].y,teleport[location].z,teleport[location].ipl]);
+        if(teleport[location].ipl) player.call('client:player:loadInterior',[teleport[location].x,teleport[location].y,teleport[location].z,teleport[location].ipl]);
     }
     else{
         player.outputChatBox(`!{#ff0000}There is no location ${location} in the list`);

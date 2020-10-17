@@ -1,38 +1,44 @@
 const db = require('../modules/db');
 var inBank;
-const bank = mp.checkpoints.new(4, new mp.Vector3(-1572.3861,-573.4212,107.5), 2, new mp.Vector3(), 2, 255, 0, 0, 255, false);
-const player = mp.players.local;
-bank.showFor(player);
+const players = mp.players.local;
+const bankData = {
+    "Bank" : {
+        "x" : 247.1980,
+        "y" : 222.5283,
+        "z" : 105.2868
+    }
+}
+const bankCheckpoints = [];
+Object.keys(bankData).forEach((value) => {
+    const checkpoint = mp.checkpoints.new(3, new mp.Vector3(bankData[value].x, bankData[value].y, bankData[value].z), 2, new mp.Vector3(), 2, 255, 0, 0, 255, false);
+    bankCheckpoints.push(mp.checkpoints.new(3, new mp.Vector3(bankData[value].x, bankData[value].y, bankData[value].z), 2, new mp.Vector3(), 2, 255, 0, 0, 255, false))
+    checkpoint.showFor(players);
+})
 
 mp.events.add("playerEnterCheckpoint", (player, checkpoint) => {
-    if(checkpoint == bank)
+    if(bankCheckpoints.includes(checkpoint))
     {
         player.outputChatBox(`!{#74FF33}וברוך שובך לבנק !{#ffffff}${player.name}!{#74FF33} שלום`);
         player.outputChatBox(`!{#74FF33}/withdraw , /balance , /deposit !{#ffffff}- פעולות לבנק`);
         player.inBank = 1;
         console.log(player.inBank);
+        player.notify('Press <font color="#00D4FF">E</font> for bank actions');
     }
 });
 
 mp.events.add("playerExitCheckpoint", (player, checkpoint) => {
    
-    if(checkpoint == bank)
+    if(checkpoint === bank)
     {
         player.outputChatBox(`!{#ffffff}${player.name}!{#74FF33} יצאת מתפריט הבנק, המשך משחק מהנה`);
         player.inBank = 0;
         console.log(player.inBank);
     }
 });
+mp.events.add("server:player:bankact", (player) => {
 
-/*mp.events.addCommand('balance', (player) => {
-
-    if(player.inBank == 0) return player.outputChatBox("הינך צריך להיות בתוך תפריט הבנק בכדי לבצע פעולות חשבון");
-    var bank;
-    db.query('SELECT `bank` FROM `accounts` WHERE username = ?', [player.name], function(err, res, row){
-        if(err) console.log(err);
-        if(res.length){
-                player.bank = playerData.bank;
-            };
-        });
-        console.log(player.bank);
-});*/
+    if(player.inBank)
+    {
+        player.outputChatBox("you pressed e in bank checkpoint");
+    }
+});
