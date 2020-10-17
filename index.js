@@ -5,12 +5,13 @@ require('./modules/db');
 require('./authentication/authentication');
 require('./player/session/session');
 require('./events');
-require('./server_commands/player_commands/player-commands');
-require('./server_commands/admin_commands/admin-commands');
+require('./server-commands/player-commands/player-commands');
+require('./server-commands/admin-commands/admin-commands');
 require('./player/death/player-death');
 require('./chat/chat');
-require('./teleports/tele');
-require('./bank/checkpoint')
+require('./player/teleports/teleports');
+require('./bank-money-system/checkpoint');
+
 const server = require('./server_status/server');
 
 // Wait for everything to load, then allow connections once all is loaded
