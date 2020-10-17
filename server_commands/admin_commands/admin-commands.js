@@ -9,3 +9,7 @@ mp.events.addCommand('gotopos', (player, _,x,y,z) => {
     player.outputChatBox(`!{#FF7D3C}(${x}${y}${z})!{#FFFFFF} :השתגרת למיקום`);
 
 });
+mp.events.addCommand('getpos', (player) => {
+    player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
+    console.log(player.position);
+});
