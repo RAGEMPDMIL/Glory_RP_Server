@@ -1,20 +1,35 @@
 /* jshint -W104 */
 const bcrypt = require('bcryptjs');
+const { errorMonitor } = require('nodemailer/lib/mailer');
 const db = require('../Modules/db');
 const mailer = require('../modules/mailer');
 let verificationCode=0;
-
+let user_Name_For_Verification='';
 // Handles user attempt to login
 mp.events.add('server:auth:userLogin', async (player, username, password) => {
+    user_Name_For_Verification=username;
     let loggedAccount = await isOnline(username);
     if (loggedAccount === 'offline') {
         try {
             const res = await attemptLogin(username, password);
             if (res === 'success') {
-                setUserStatus(username, 1);
-                player.name = username;
-                player.call('client:auth:loginHandler', ['success', username]);
-                console.log(`${username} has successfully logged in`);
+                //verification check--------------------------------------
+                const ver=await checkVerifiedAccount(username);
+                console.log(ver);
+                console.log(ver ==='verified');
+                if(ver=== 'verified')
+                {
+                //--------------------------------------------------------
+                    setUserStatus(username, 1);
+                    player.name = username;
+                    player.call('client:auth:loginHandler', ['success', username]);
+                    console.log(`${username} has successfully logged in`);
+                }
+                else{
+                    player.call('client:auth:showVerificationPage');
+                    var mail= await checkMailToVerified(username);
+                    mp.events.call('server:auth:confirmationMail',mail);
+                }
             } else {
                 player.call('client:auth:loginHandler', ['incorrectInfo', username]);
             }
@@ -28,12 +43,18 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
     }
 });
 
+mp.events.add('server:auth:resendMail',async ()=>{
+    console.log("imresend mail in the server");
+    var mail= await checkMailToVerified(user_Name_For_Verification);
+    mp.events.call('server:auth:confirmationMail',mail);
+})
 
 // Handles user attempt to register.
 mp.events.add('server:auth:userRegister', async (player, username, password, email) => {
     try {
         const res = await attempRegistration(username, password, email);
         if (res === "success") {
+            user_Name_For_Verification=username;
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
             mp.events.call('server:auth:confirmationMail',email);
@@ -63,26 +84,23 @@ mp.events.add('server:auth:confirmationMail',(email)=>{
         }
       });
 })
+
+//check the verification mode from the verification form.
 mp.events.add('server:register:checkVarificationMode',(player,insertedCode)=>{
     if(verificationCode==insertedCode)
     {
-        db.query('SELECT * FROM `accounts` WHERE `id`=(SELECT max(`id`) FROM `accounts`)',function(error,user,fields){
-            try
-            {
-                console.log(user.username);
-                db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,user[0].username], function(error, result, fields) {
-                    if(error) {
-                        console.log(error);
-                    }
-                    else console.log("made it");
-                }); 
-            }
-            catch(e) {console.log(e);}
-            {
-                
-            }
-            player.call('client:auth:verificationHandler',[true]);
-        })
+        try
+        {
+            db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,user_Name_For_Verification], function(error, result, fields) {
+                if(error) {
+                            console.log(error);
+                }
+                else console.log("made it");
+            }); 
+        }
+        catch(e) {console.log(e);}
+    player.call('client:auth:verificationHandler',[true]);
+            
     }
     else
     {
@@ -97,6 +115,40 @@ mp.events.add('server:auth:onPlayerLogout', async (username) => {
         setUserStatus(username, 0);
     }
 });
+
+function checkVerifiedAccount(username)
+{
+    return new Promise(function (resolve) {
+        try{
+            db.query('SELECT `verified` FROM `accounts` WHERE `username` = ?',[username], function(error,result,fields){
+                if(error){console.log(error);}
+                else{
+                    result[0].verified===0 ? resolve('unverified') : resolve('verified');
+                }
+            })
+
+        }catch(e) {console.log(e);}
+    })
+}
+
+function checkMailToVerified(username){
+    return new Promise(function (resolve){
+        try{
+            db.query('SELECT `email` FROM `accounts` WHERE `username` = ?',[username],function(error,result,fields){
+                if(error){console.log(error);}
+                else{
+                    resolve(result[0].email);
+                }
+            })
+
+        }
+        catch{
+
+        }
+    })
+
+}
+
 
 function setUserStatus(username, status) {
     return new Promise(function(resolve) {
