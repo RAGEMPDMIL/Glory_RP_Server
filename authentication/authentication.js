@@ -4,10 +4,10 @@ const { errorMonitor } = require('nodemailer/lib/mailer');
 const db = require('../Modules/db');
 const mailer = require('../modules/mailer');
 let verificationCode=0;
-let user_Name_For_Verification='';
+let userNameForVerification='';
 // Handles user attempt to login
 mp.events.add('server:auth:userLogin', async (player, username, password) => {
-    user_Name_For_Verification=username;
+    userNameForVerification=username;
     let loggedAccount = await isOnline(username);
     if (loggedAccount === 'offline') {
         try {
@@ -45,7 +45,7 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
 
 mp.events.add('server:auth:resendMail',async ()=>{
     console.log("imresend mail in the server");
-    var mail= await checkMailToVerified(user_Name_For_Verification);
+    var mail= await checkMailToVerified(userNameForVerification);
     mp.events.call('server:auth:confirmationMail',mail);
 })
 
@@ -54,7 +54,7 @@ mp.events.add('server:auth:userRegister', async (player, username, password, ema
     try {
         const res = await attempRegistration(username, password, email);
         if (res === "success") {
-            user_Name_For_Verification=username;
+            userNameForVerification=username;
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
             mp.events.call('server:auth:confirmationMail',email);
@@ -91,7 +91,7 @@ mp.events.add('server:register:checkVarificationMode',(player,insertedCode)=>{
     {
         try
         {
-            db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,user_Name_For_Verification], function(error, result, fields) {
+            db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,userNameForVerification], function(error, result, fields) {
                 if(error) {
                             console.log(error);
                 }

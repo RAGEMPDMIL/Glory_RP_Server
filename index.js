@@ -1,18 +1,35 @@
 mp.events.delayInitialization = true; //  Setting this to true won't allow players to connect until this is false again
 
-// Load up gamemode assets
+// DB
 require('./modules/db');
+
+// Authentication
 require('./authentication/authentication');
+
+// Player
 require('./player/session/session');
-require('./events');
+require('./player/teleports/teleports');
+require('./player/death/player-death');
+
+// Commands
 require('./server-commands/player-commands/player-commands');
 require('./server-commands/admin-commands/admin-commands');
-require('./player/death/player-death');
+
+// Chat
 require('./chat/chat');
-require('./player/teleports/teleports');
-require('./bank-money-system/checkpoint');
-require('./bank-money-system/bankIcon');
-const server = require('./server_status/server');
+
+// Map Blips
+require('./bank-money-system/blips/blips');
+
+// Map Colshapes
+require('./bank-money-system/colshapes/colshapes');
+
+//Map Markers
+require('./bank-money-system/markers/markers');
+
+// Functions
+require('./events');
+const server = require('./server-status/server');
 
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
