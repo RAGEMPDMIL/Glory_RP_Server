@@ -35,6 +35,9 @@ require('./bank-money-system/markers/markers');
 require('./events');
 const server = require('./server-status/server');
 
+// Gun Store
+require('./gun-store/colshapes');
+require('./gun-store/markers');
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
     await server.setAllOffline();

@@ -22,7 +22,13 @@ const teleport = {
         "y":220.000,
         "z":-50.000,
         "ipl":"vw_casino_main"
+      },
+      "gunstore":{
+        "x": 246.593017578125,
+        "y": -46.60612869262695,
+        "z": 69.9410629272461
       }
+      
 };
 
 mp.events.addCommand("tp", (player, fullText,location) => {
