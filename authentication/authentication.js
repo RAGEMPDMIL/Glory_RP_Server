@@ -3,16 +3,14 @@ const bcrypt = require('bcryptjs');
 const { errorMonitor } = require('nodemailer/lib/mailer');
 const db = require('../Modules/db');
 const mailer = require('../modules/mailer');
-let verificationCode=0;
-let userNameForVerification='';
 // Handles user attempt to login
 mp.events.add('server:auth:userLogin', async (player, username, password) => {
-    userNameForVerification=username;
     let loggedAccount = await isOnline(username);
     if (loggedAccount === 'offline') {
         try {
             const res = await attemptLogin(username, password);
             if (res === 'success') {
+                player.name=username;
                 //verification check--------------------------------------
                 const ver=await checkVerifiedAccount(username);
                 console.log(ver);
@@ -21,7 +19,6 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
                 {
                 //--------------------------------------------------------
                     setUserStatus(username, 1);
-                    player.name = username;
                     player.call('client:auth:loginHandler', ['success', username]);
                     console.log(`${username} has successfully logged in`);
                 }
@@ -43,9 +40,9 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
     }
 });
 
-mp.events.add('server:auth:resendMail',async ()=>{
+mp.events.add('server:auth:resendMail',async (player)=>{
     console.log("imresend mail in the server");
-    var mail= await checkMailToVerified(userNameForVerification);
+    var mail= await checkMailToVerified(player.name);
     mp.events.call('server:auth:confirmationMail',mail);
 })
 
@@ -54,7 +51,7 @@ mp.events.add('server:auth:userRegister', async (player, username, password, ema
     try {
         const res = await attempRegistration(username, password, email);
         if (res === "success") {
-            userNameForVerification=username;
+            player.name=username;
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
             mp.events.call('server:auth:confirmationMail',email);
@@ -69,7 +66,7 @@ mp.events.add('server:auth:userRegister', async (player, username, password, ema
 //Send varification code to the new account.
 mp.events.add('server:auth:confirmationMail',(email)=>{
     console.log(email);
-    verificationCode=Math.floor(Math.random() * 100000) + 111111;
+    var verificationCode=Math.floor(Math.random() * 100000) + 111111;
     var mailOptions = {
         from: 'ragempdmil@gmail.com',
         to: email,
@@ -83,15 +80,22 @@ mp.events.add('server:auth:confirmationMail',(email)=>{
           console.log('Email sent: ' + info.response);
         }
       });
+      try{
+          db.query('UPDATE `accounts` SET `verification_code` = ? WHERE `email` = ?',[verificationCode,email], function(error,result,fields){
+              console.log(result.affectedRows+"verificaton code updated");
+          })
+
+      }catch(e){console.log(e);}
 })
 
 //check the verification mode from the verification form.
-mp.events.add('server:register:checkVarificationMode',(player,insertedCode)=>{
+mp.events.add('server:register:checkVarificationMode', async(player,insertedCode)=>{
+    var verificationCode = await getVerificationCode(player);
     if(verificationCode==insertedCode)
     {
         try
         {
-            db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,userNameForVerification], function(error, result, fields) {
+            db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1,player.name], function(error, result, fields) {
                 if(error) {
                             console.log(error);
                 }
@@ -107,6 +111,23 @@ mp.events.add('server:register:checkVarificationMode',(player,insertedCode)=>{
         player.call('client:auth:verificationHandler',[false]);
     }
 })
+
+function getVerificationCode(player){
+    return new Promise(function (resolve) {
+        try{
+            db.query("SELECT `verification_code` FROM `accounts` WHERE `username`=?",[player.name],function(error,res,fields){
+                if(res[0].length!=0)
+                {
+                    resolve(res[0].verification_code);
+                }
+                else
+                {
+                    resolve('no code found');
+                }
+            })
+        }catch(e){console.log(e);}
+    })
+}
 
 // Handles user quit event
 mp.events.add('server:auth:onPlayerLogout', async (username) => {
