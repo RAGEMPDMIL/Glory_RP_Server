@@ -12,10 +12,7 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
             if (res === 'success') {
                 player.name=username;
                 const ver=await checkVerifiedAccount(username);
-                console.log(ver);
-                console.log(ver ==='verified');
-
-                if(ver=== 'verified')
+                if(ver === 'verified')
                 {
                     setUserStatus(username, 1);
                     player.call('client:auth:loginHandler', ['success', username]);
@@ -40,7 +37,6 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
 });
 
 mp.events.add('server:auth:resendMail',async (player)=>{
-    console.log("imresend mail in the server");
     var mail= await checkMailToVerified(player.name);
     mp.events.call('server:auth:confirmationMail',mail);
 })
