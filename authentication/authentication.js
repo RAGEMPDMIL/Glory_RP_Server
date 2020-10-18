@@ -1,7 +1,7 @@
 /* jshint -W104 */
 const bcrypt = require('bcryptjs');
 const { errorMonitor } = require('nodemailer/lib/mailer');
-const db = require('../Modules/db');
+const db = require('../modules/db');
 const mailer = require('../modules/mailer');
 // Handles user attempt to login
 mp.events.add('server:auth:userLogin', async (player, username, password) => {
@@ -11,13 +11,12 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
             const res = await attemptLogin(username, password);
             if (res === 'success') {
                 player.name=username;
-                //verification check--------------------------------------
                 const ver=await checkVerifiedAccount(username);
                 console.log(ver);
                 console.log(ver ==='verified');
+
                 if(ver=== 'verified')
                 {
-                //--------------------------------------------------------
                     setUserStatus(username, 1);
                     player.call('client:auth:loginHandler', ['success', username]);
                     console.log(`${username} has successfully logged in`);
@@ -124,9 +123,9 @@ function getVerificationCode(player){
                 {
                     resolve('no code found');
                 }
-            })
+            });
         }catch(e){console.log(e);}
-    })
+    });
 }
 
 // Handles user quit event
@@ -146,10 +145,10 @@ function checkVerifiedAccount(username)
                 else{
                     result[0].verified===0 ? resolve('unverified') : resolve('verified');
                 }
-            })
+            });
 
         }catch(e) {console.log(e);}
-    })
+    });
 }
 
 function checkMailToVerified(username){
@@ -160,14 +159,12 @@ function checkMailToVerified(username){
                 else{
                     resolve(result[0].email);
                 }
-            })
-
+            });
         }
-        catch{
-
+        catch(e){
+            console.log(e);
         }
-    })
-
+    });
 }
 
 
@@ -205,8 +202,10 @@ function isOnline(username) {
 function attemptLogin(username, password) {
     return new Promise(function (resolve) {
         try {
-            db.query('SELECT `username`, `password` FROM `accounts` WHERE `username` = ?', [username], function (error, result, fields) {
-                if (result[0].username.length != 0) {
+            db.query('SELECT `username`, `password` FROM `accounts` WHERE BINARY `username` = ?', [username], function (error, result, fields) {
+                if(!result[0]) {
+                    resolve('incorrectInfo');
+                } else if (result[0].username.length != 0) {
                     bcrypt.compare(password, result[0].password, function (err, result) {
                         if (err) {
                             console.log(err);

@@ -20,6 +20,7 @@ require('./chat/chat');
 
 // World
 require('./world/time/time');
+require('./world/weather/weather');
 
 // Map Blips
 require('./bank-money-system/blips/blips');
