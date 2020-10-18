@@ -18,6 +18,9 @@ require('./server-commands/admin-commands/admin-commands');
 // Chat
 require('./chat/chat');
 
+// World
+require('./world/time/time');
+
 // Map Blips
 require('./bank-money-system/blips/blips');
 
