@@ -4,7 +4,7 @@ let spawnPoints = require('./spawn_points.json').SpawnPoints;
 
 mp.events.add('playerSpawn', player => {
 
-    player.outputChatBox(`!{#FB4E4E}You have been spawned, ${player.name}!`);
+  player.notify(`~r~You have been spawned`);
   });
 // - - - - - Death - - - - - //
 

@@ -8,6 +8,7 @@ mp.events.add('playerQuit', function (player, exitType, reason) {
 mp.events.add('server:player:loadPlayerData', async (player) => {
     const playerData = await getPlayerData(player.name);
     player.call('client:playerHud:getHudData', [playerData]);
+    player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome  Back ${player.name}`);
 });
 
 function getPlayerData(username) {

@@ -49,6 +49,7 @@ mp.events.add('server:auth:userRegister', async (player, username, password, ema
             player.name=username;
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
+            player.notify(`~g~[Glory:DM] ~w~${player.name} registerd completed`);
             mp.events.call('server:auth:confirmationMail',email);
         } else {
             player.call('client:auth:registerHandler', ['userExists']);
