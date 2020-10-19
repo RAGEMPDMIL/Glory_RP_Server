@@ -35,9 +35,15 @@ require('./gun-system/markers/markers');
 
 // Functions
 require('./events');
+
+// Vehicle System
+require('./vehicle-system/commands/vehicle-commands');
+
 // admin-system
 require('./admin-system/commands');
 const server = require('./server-status/server');
+
+
 
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
