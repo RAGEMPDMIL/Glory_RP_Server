@@ -1,0 +1,58 @@
+{
+    "Vehicles": {
+        "mazda-rx7": {
+            "hash": "rx7cwest",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "leon": {
+            "hash": "seatl",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "ftype": {
+            "hash": "FtypeC",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "buggati-chiron-2019": {
+            "hash": "2019chiron",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "buggati-chiron-2017": {
+            "hash": "2017chiron",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "mercedes-s500": {
+            "hash": "s500w222",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        }
+    }
+}
