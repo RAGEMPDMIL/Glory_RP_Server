@@ -48,3 +48,12 @@ mp.events.addCommand('setTime', (player, fullText, hour, minute, second) => {
         player.outputChatBox(`שינית את השעה`);
     }
 });
+
+mp.events.add('server:worldTime:getWorldTime', (player, eventLocation) => {
+    switch (eventLocation) {
+        case 'moneySystem': {
+            player.call('client:moneyBankSystem:getWorldTime', [mp.world.time.hour, mp.world.time.minute]);
+            break;
+        }
+    }
+});

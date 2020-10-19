@@ -38,6 +38,9 @@ require('./events');
 // Vehicle System
 require('./vehicle-system/commands/vehicle-commands');
 
+// Bank Money System
+require('./bank-money-system/events/bank-money-system-events');
+
 // admin-system
 require('./admin-system/commands');
 const server = require('./server-status/server');
