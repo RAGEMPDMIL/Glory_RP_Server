@@ -27,17 +27,17 @@ require('./bank-money-system/blips/blips');
 
 // Map Colshapes
 require('./bank-money-system/colshapes/colshapes');
+require('./gun-system/colshapes/colshapes');
 
 //Map Markers
 require('./bank-money-system/markers/markers');
+require('./gun-system/markers/markers');
 
 // Functions
 require('./events');
 const server = require('./server-status/server');
 
-// Gun Store
-require('./gun-store/colshapes');
-require('./gun-store/markers');
+
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
     await server.setAllOffline();

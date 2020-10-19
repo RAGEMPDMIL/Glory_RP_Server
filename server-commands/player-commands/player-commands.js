@@ -80,6 +80,6 @@ mp.events.addCommand('mod', (player, _, modType) => {
 });
 
 mp.events.addCommand('weapon', (player, fullText) => {
-   player.call('client:commands:getWeapon');
+   player.call('client:gunSystem:openUi');
 });
 

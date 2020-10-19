@@ -1,11 +1,11 @@
 const db = require('../modules/db');
 
-mp.events.add("serverShutdown", async () =>{
+// mp.events.add("serverShutdown", async () =>{
 
-    mp.events.delayShutdown = true;
-    await setShutDown();
-    mp.events.delayShutdown = false;
-});
+//     mp.events.delayShutdown = true;
+//     await setShutDown();
+//     mp.events.delayShutdown = false;
+// });
 
 module.exports.setAllOffline = async function setAllOffline() {
     return new Promise(function(resolve) {

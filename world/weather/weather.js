@@ -16,6 +16,7 @@ const weather = {
 };
 
 const weatherKeys = Object.keys(weather);
+mp.world.setWeatherTransition(weather[weatherKeys[Math.floor(Math.random() * weatherKeys.length)]]);
 
 setInterval(() => {
     const random = Math.floor(Math.random() * weatherKeys.length);

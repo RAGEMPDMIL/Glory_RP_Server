@@ -31,8 +31,7 @@ const teleport = {
       
 };
 
-mp.events.addCommand("tp", (player, fullText,location) => {
-    console.log(fullText);
+mp.events.addCommand("tp", (player, fullText, location) => {
     if(teleport[location])
     {
         player.outputChatBox(`!{#3399ff}${location} השתגרת בהצלחה ל`);
