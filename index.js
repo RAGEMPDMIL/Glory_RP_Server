@@ -13,7 +13,6 @@ require('./player/death/player-death');
 
 // Commands
 require('./server-commands/player-commands/player-commands');
-require('./server-commands/admin-commands/admin-commands');
 
 // Chat
 require('./chat/chat');

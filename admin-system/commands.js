@@ -1,44 +1,80 @@
 const db = require('../modules/db');
 
-// Admins Command
-mp.events.addCommand("setadmin", async(player,fullText,playerid,level) => {
+// ------------- Events ------------- //
+mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => {
 
-    var adminlevel = await GetAdminLevel(player);
+    var aLevel = await this.getAdminLevel(player.name);
 
-    if(adminlevel < 20) return player.outputChatBox("!{#ff0000}you cannot use this command")
-    if(!playerid) return player.outputChatBox("/setadmin [playerid] [level]");
-    if(!isNumeric(playerid)) return player.outputChatBox("playerid must be id");
+    if(aLevel < 20) return player.outputChatBox("!{#ff0000}you cannot use this command");
+    if(!playerid) return player.outputChatBox("!{#ff0000}/setadmin [playerid] [level]");
+    if(adminLevel < 0 | adminLevel > 20) return player.outputChatBox("!{#ff0000}level 0-20");
+    if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
+    if(player.name == mp.players.at(playerid).name) return player.outputChatBox("!{#ff0000}you cannot use this command on yourself");
 
+    setAdminLevel(mp.players.at(playerid).name, adminLevel);
+    player.outputChatBox(`!{#ff0000}${adminLevel} אדמין ברמה ${mp.players.at(playerid).name} שמת את השחקן`);
 
-    SetAdminLevel(mp.players.at(playerid).name, level);
-    player.outputChatBox(`${level} אדמין ברמה ${mp.players.at(playerid).name} שמת את השחקן`);
-
-    mp.players.at(playerid).outputChatBox(`${level} שם אותך אדמין ברמה ${player.name} האדמין`);
+    if(adminLevel == 0)  mp.players.at(playerid).outputChatBox(`!{#ff0000}הוריד אותך מאדמין ${player.name} האדמין`);
+    else mp.players.at(playerid).outputChatBox(`!{#ff0000}${adminLevel} שם אותך אדמין ברמה ${player.name} האדמין`);
 
 });
+mp.events.addCommand('acmds', async (player) => {
+
+    var aLevel = await this.getAdminLevel(player.name);
+    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+
+    player.outputChatBox('!{#FF7D3C}Admin Commands: ');
+    player.outputChatBox('!{#FFFFFF}/setadmin,/getpos,/gotopos');
+    player.outputChatBox('!{#FFFFFF}/vehicle,/vcall,/vcolor,/vmod');
+});
+
+mp.events.addCommand('gotopos',  async (player, fullText ,x,y,z) => {
+
+    var aLevel = await this.getAdminLevel(player.name);
+    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+
+    player.position = new mp.Vector3(parseInt(x), parseInt(y),parseInt(z));
+    player.outputChatBox(`!{#FF7D3C}(${x}${y}${z})!{#FFFFFF} :השתגרת למיקום`);
+
+});
+mp.events.addCommand('getpos', async (player) => {
+
+    var aLevel = await this.getAdminLevel(player.name);
+    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+
+    player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
+    console.log(player.position);
+});
+// ------------- Functions ------------- //
 function isNumeric(str) {
     if (typeof str != "string") return false 
     return !isNaN(str) && 
            !isNaN(parseFloat(str))
 }
-function GetAdminLevel(player){
+module.exports.getAdminLevel = async function getAdminLevel(username){
     return new Promise(function (resolve) {
         try{
-            db.query('SELECT `admin` FROM `accounts` WHERE `username`=?',[player.name],function(error,res,fields){
-                if(res[0].length!=0)
+            db.query('SELECT `admin` FROM `accounts` WHERE `username`=?',[username],function(error,res,fields){
+                if(error){console.log(error);}
+                if(!res[0]){
+                    resolve(-1);
+                }
+                else if(res[0].length!=0)
                 {
                     resolve(res[0].admin);
-                    console.log(res[0].admin)
+                    console.log(res[0].admin);
                 }
                 else
                 {
-                    resolve('no admin level found');
+                    console.log("no admin found");
+                    resolve(-1);
                 }
             });
         }catch(e){console.log(e);}
     });
+    console.log("four");
 }
-function SetAdminLevel(player,level){
+function setAdminLevel(player,level){
 
     db.query('UPDATE `accounts` SET admin=? WHERE username=?',[level,player],function(error,result,fields){
         if(error) { console.log(error)}
