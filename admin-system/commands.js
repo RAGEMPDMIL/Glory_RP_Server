@@ -1,4 +1,5 @@
 const db = require('../modules/db');
+const projectFunctions = require('../utils/functions-utils');
 
 // ------------------ Admin Commands: Level 20 ------------------ //
 mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => {
@@ -8,7 +9,7 @@ mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => 
     if(aLevel < 20) return player.outputChatBox("!{#ff0000}you cannot use this command");
     if(!playerid) return player.outputChatBox("!{#ff0000}/setadmin [playerid] [level]");
     if(adminLevel < 0 | adminLevel > 20) return player.outputChatBox("!{#ff0000}level 0-20");
-    if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
+    if(!projectFunctions.isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
     if(player.name == mp.players.at(playerid).name) return player.outputChatBox("!{#ff0000}you cannot use this command on yourself");
     if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
     setAdminLevel(mp.players.at(playerid).name, adminLevel);
@@ -56,12 +57,6 @@ mp.events.addCommand('getpos', async (player) => {
 
 
 // ------------- Functions ------------- //
-function isNumeric(str) {
-    if (typeof str != "string") return false
-    return !isNaN(str) &&
-        !isNaN(parseFloat(str))
-}
-
 module.exports.getAdminLevel = async function getAdminLevel(username) {
     return new Promise(function (resolve) {
         try {
