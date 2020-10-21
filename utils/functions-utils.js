@@ -3,3 +3,7 @@ module.exports.isNumeric = function isNumeric(str) {
     return !isNaN(str) &&
         !isNaN(parseFloat(str));
 }
+
+module.exports.showErrorChat = function showErrorChat(player,error) {
+    return player.outputChatBox(`!{#FB4E4E}[Server-Error] ${error}`);
+}

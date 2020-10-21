@@ -6,25 +6,41 @@ mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => 
 
     var aLevel = await this.getAdminLevel(player.name);
 
-    if(aLevel < 20) return player.outputChatBox("!{#ff0000}you cannot use this command");
-    if(!playerid) return player.outputChatBox("!{#ff0000}/setadmin [playerid] [level]");
-    if(adminLevel < 0 | adminLevel > 20) return player.outputChatBox("!{#ff0000}level 0-20");
-    if(!projectFunctions.isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
-    if(player.name == mp.players.at(playerid).name) return player.outputChatBox("!{#ff0000}you cannot use this command on yourself");
-    if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
+    if(aLevel < 20) {
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    }
+    if(!playerid) {
+        return projectFunctions.showErrorChat(player,'הינך צריך להכניס איידי של שחקן');
+    }
+    if(adminLevel < 0 | adminLevel > 20) {
+        return projectFunctions.showErrorChat(player,'רמת האדמין צריכה להיות בין 0 ל 20');
+    }
+    if(!projectFunctions.isNumeric(playerid)) {
+        return projectFunctions.showErrorChat(player,'הינך צריך להכניס איידי של השחקן');
+    }
+    if(player.name == mp.players.at(playerid).name) {
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו על עצמך');
+    }
+    if(!mp.players.exists(Number(playerid))) {
+        return projectFunctions.showErrorChat(player,'האיידי שהזנת אינו מחובר לשרת');
+    }
     setAdminLevel(mp.players.at(playerid).name, adminLevel);
     player.outputChatBox(`!{#ff0000}${adminLevel} אדמין ברמה ${mp.players.at(playerid).name} שמת את השחקן`);
-
-    if (adminLevel == 0) mp.players.at(playerid).outputChatBox(`!{#ff0000}הוריד אותך מאדמין ${player.name} האדמין`);
-    else mp.players.at(playerid).outputChatBox(`!{#ff0000}${adminLevel} שם אותך אדמין ברמה ${player.name} האדמין`);
+    if (adminLevel == 0){
+         mp.players.at(playerid).outputChatBox(`!{#ff0000}הוריד אותך מאדמין ${player.name} האדמין`);
+        }
+        else{
+             mp.players.at(playerid).outputChatBox(`!{#ff0000}${adminLevel} שם אותך אדמין ברמה ${player.name} האדמין`);
+        }
 
 });
 // ------------------ Admin Commands : Level 1 ------------------ // 
 mp.events.addCommand('acmds', async (player) => {
 
     var aLevel = await this.getAdminLevel(player.name);
-    if (aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
-
+    if (aLevel < 1) {
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    }
     player.outputChatBox('!{#FF7D3C}Admin Commands: ');
     player.outputChatBox('!{#FFFFFF}/setadmin,/getpos,/gotopos,/asay');
     player.outputChatBox('!{#FFFFFF}/vehicle,/vcall,/vcolor,/vmod');
@@ -32,15 +48,21 @@ mp.events.addCommand('acmds', async (player) => {
 });
 mp.events.addCommand('asay', async ( player, fullText) => {
     var aLevel = await this.getAdminLevel(player.name);
-    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
-    if(!fullText) return player.outputChatBox("!{ff0000}ERROR: /asay [text]");
+    if(aLevel < 1) {
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    }
+    if(!fullText){
+        return player.outputChatBox("!{ff0000}ERROR: /asay [text]");
+    }
     mp.players.broadcast(`!{#ff0000}Admin ${player.name}(${player.id}):${fullText}`);
 });
 
 mp.events.addCommand('gotopos', async (player, fullText, x, y, z) => {
 
     var aLevel = await this.getAdminLevel(player.name);
-    if (aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+    if(aLevel < 1) {
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    }
 
     player.position = new mp.Vector3(parseInt(x), parseInt(y), parseInt(z));
     player.outputChatBox(`!{#FF7D3C}(${x}${y}${z})!{#FFFFFF} :השתגרת למיקום`);
@@ -50,8 +72,9 @@ mp.events.addCommand('gotopos', async (player, fullText, x, y, z) => {
 mp.events.addCommand('getpos', async (player) => {
 
     var aLevel = await this.getAdminLevel(player.name);
-    if (aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
-
+    if (aLevel < 1){
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    }
     player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
 });
 
