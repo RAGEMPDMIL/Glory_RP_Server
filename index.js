@@ -40,6 +40,7 @@ require('./vehicle-system/commands/vehicle-commands');
 
 // Bank Money System
 require('./bank-money-system/events/bank-money-system-events');
+require('./bank-money-system/commands/banmk-money-commands');
 
 // admin-system
 require('./admin-system/commands');

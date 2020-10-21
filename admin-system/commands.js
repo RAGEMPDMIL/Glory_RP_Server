@@ -35,12 +35,8 @@ mp.events.addCommand('asay', async ( player, fullText) => {
     if(!fullText) return player.outputChatBox("!{ff0000}ERROR: /asay [text]");
     mp.players.broadcast(`!{#ff0000}Admin ${player.name}(${player.id}):${fullText}`);
 });
-<<<<<<< HEAD
-mp.events.addCommand('gotopos',  async (player, fullText ,x,y,z) => {
-=======
 
 mp.events.addCommand('gotopos', async (player, fullText, x, y, z) => {
->>>>>>> 0f8a0f33e03b9d9c159cabf8c94eb7a34d0d7895
 
     var aLevel = await this.getAdminLevel(player.name);
     if (aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
@@ -58,32 +54,8 @@ mp.events.addCommand('getpos', async (player) => {
     player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
 });
 
-mp.events.addCommand('sethealth', async(player,fullText,playerid,health) => {
 
-    var aLevel = await this.getAdminLevel(player.name);
-
-    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
-    if(!health) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /sethealth [id] [health]');
-    if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
-    if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
-
-    player.health = Number(health);
-    player.outputChatBox(`!{#ff0000}(HP: ${health})!{#ffffff}שינית את החיים שלך`);
- });
- 
- mp.events.addCommand('setarmour', async(player,fullText,playerid,armour) => {
-
-    var aLevel = await this.getAdminLevel(player.name);
-
-    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
-    if(!armour) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /setarmour [id] [armour]');
-    if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
-    if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
-
-    player.armour = Number(armour);
-    player.outputChatBox(`!{#ff0000}(HP: ${armour})!{#ffffff}שינית את המגן שלך`);
- });
-// ------------------ Functions ------------------ //
+// ------------- Functions ------------- //
 function isNumeric(str) {
     if (typeof str != "string") return false
     return !isNaN(str) &&
@@ -101,14 +73,10 @@ module.exports.getAdminLevel = async function getAdminLevel(username) {
                     resolve(-1);
                 } else if (res[0].length != 0) {
                     resolve(res[0].admin);
-<<<<<<< HEAD
                     //console.log(res[0].admin);
                 }
                 else
                 {
-=======
-                } else {
->>>>>>> 0f8a0f33e03b9d9c159cabf8c94eb7a34d0d7895
                     console.log("no admin found");
                     resolve(-1);
                 }

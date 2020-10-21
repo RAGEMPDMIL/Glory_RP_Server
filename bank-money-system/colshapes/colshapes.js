@@ -1,15 +1,7 @@
 const db = require('../../modules/db');
 
-let inBank = false;
+const moneySystemColshapes = require('./colshapes-data.json');
 const availableColshapes = [];
-const moneySystemColshapes = {
-    Bank: {
-        x: 246.64202880859375,
-        y: 221.6378631591797,
-        z: 105.28675079345703,
-        range: 2.0
-    }
-};
 
 Object.keys(moneySystemColshapes).forEach((value) => {
     const colshape = mp.colshapes.newSphere(moneySystemColshapes[value].x, moneySystemColshapes[value].y, moneySystemColshapes[value].z, moneySystemColshapes[value].range);

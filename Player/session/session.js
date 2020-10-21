@@ -7,8 +7,10 @@ mp.events.add('playerQuit', function (player, exitType, reason) {
 // Loads player data when login
 mp.events.add('server:player:loadPlayerData', async (player) => {
     const playerData = await getPlayerData(player.name);
+    player.wallet = Number(playerData[0]);
+    player.bank = Number(playerData[1]);
     player.call('client:playerHud:getHudData', [playerData]);
-    player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome  Back ${player.name}`);
+    player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome Back ${player.name}`);
 });
 
 function getPlayerData(username) {

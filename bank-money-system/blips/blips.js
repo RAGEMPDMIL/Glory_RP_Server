@@ -1,6 +1,5 @@
-let bankIcon = mp.blips.new(615, new mp.Vector3(231.2327,214.5329,106.0869),
-    {
-        name: 'Bank',
-        color: 2,
-        shortRange: false,
+const bankBlips = require('./blips-data.json');
+
+Object.keys(bankBlips).forEach((blip) => {
+    mp.blips.new(bankBlips[blip].sprite, new mp.Vector3(bankBlips[blip].position.x, bankBlips[blip].position.y, bankBlips[blip].position.z), {...bankBlips[blip].options});
 });

@@ -36,8 +36,8 @@
 
             }
         },
-        "buggati-chiron-2017": {
-            "hash": "2017chiron",
+        "mercedes-s500": {
+            "hash": "s500w222",
             "colors": {
 
             },
@@ -45,8 +45,35 @@
 
             }
         },
-        "mercedes-s500": {
-            "hash": "s500w222",
+        "tesla-x": {
+            "hash": "teslax",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "bmw-m5": {
+            "hash": "m5e60",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "audi-r8": {
+            "hash": "r820",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "tesla-s": {
+            "hash": "models",
             "colors": {
 
             },
@@ -56,3 +83,4 @@
         }
     }
 }
+
