@@ -1,4 +1,4 @@
-module.exports.isNumberic = function isNumeric(str) {
+module.exports.isNumeric = function isNumeric(str) {
     if (typeof str != "string") return false;
     return !isNaN(str) &&
         !isNaN(parseFloat(str));
