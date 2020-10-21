@@ -1,0 +1,18 @@
+{
+    "Bank": {
+        "markerType": 1,
+        "position": {
+            "x": 246.64202880859375,
+            "y": 221.6378631591797,
+            "z": 105.28675079345703
+        },
+        "scale": 1.0,
+        "options": {
+            "color": [90, 220, 80, 70],
+            "direction": 0,
+            "dimension": 0,
+            "rotation": 0,
+            "visible": true
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "bank1Icon": {
+        "sprite": 615,
+        "position": {
+            "x": 231.2327,
+            "y": 214.5329,
+            "z": 106.0869
+        },
+        "options": {
+            "name": "Bank",
+            "color": 2,
+            "shortRange": false
+        }
+    }
+}
