@@ -78,6 +78,22 @@ mp.events.addCommand('getpos', async (player) => {
     player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
 });
 
+mp.events.addCommand('sethp' , async(player,fullText,playerid,health) => {
+
+    var aLevel = await this.getAdminLevel(player.name);
+    if (aLevel < 1){
+        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    }
+    if(!health || !playerid) {
+        return projectFunctions.showErrorChat(player,'/sethp [1-100]');
+    }
+    if(!mp.players.exists(Number(playerid))) {
+        return projectFunctions.showErrorChat(player,'האיידי שהזנת אינו מחובר לשרת');
+    }
+    player.health = Number(health);
+    player.outputChatBox(`${health} ערך לך את החיים ל ${player.name} האדמין`);
+    player.outputChatBox(`!{#ff0000}${health} את החיים ${mp.players.at(playerid).name} ערכת לשחקן`);
+});
 
 // ------------- Functions ------------- //
 module.exports.getAdminLevel = async function getAdminLevel(username) {
