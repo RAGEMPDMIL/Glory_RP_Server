@@ -42,8 +42,6 @@ require('./vehicle-system/commands/vehicle-commands');
 require('./admin-system/commands');
 const server = require('./server-status/server');
 
-
-
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
     await server.setAllOffline();

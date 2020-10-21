@@ -1,6 +1,6 @@
 const db = require('../modules/db');
 
-// ------------- Events ------------- //
+// ------------------ Admin Commands: Level 20 ------------------ //
 mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => {
 
     var aLevel = await this.getAdminLevel(player.name);
@@ -10,7 +10,7 @@ mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => 
     if(adminLevel < 0 | adminLevel > 20) return player.outputChatBox("!{#ff0000}level 0-20");
     if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
     if(player.name == mp.players.at(playerid).name) return player.outputChatBox("!{#ff0000}you cannot use this command on yourself");
-
+    if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
     setAdminLevel(mp.players.at(playerid).name, adminLevel);
     player.outputChatBox(`!{#ff0000}${adminLevel} אדמין ברמה ${mp.players.at(playerid).name} שמת את השחקן`);
 
@@ -18,16 +18,23 @@ mp.events.addCommand("setadmin", async (player,fullText,playerid,adminLevel) => 
     else mp.players.at(playerid).outputChatBox(`!{#ff0000}${adminLevel} שם אותך אדמין ברמה ${player.name} האדמין`);
 
 });
+// ------------------ Admin Commands : Level 1 ------------------ // 
 mp.events.addCommand('acmds', async (player) => {
 
     var aLevel = await this.getAdminLevel(player.name);
     if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
 
     player.outputChatBox('!{#FF7D3C}Admin Commands: ');
-    player.outputChatBox('!{#FFFFFF}/setadmin,/getpos,/gotopos');
+    player.outputChatBox('!{#FFFFFF}/setadmin,/getpos,/gotopos,/asay');
     player.outputChatBox('!{#FFFFFF}/vehicle,/vcall,/vcolor,/vmod');
+    player.outputChatBox('!{#FFFFFF}/sethealth ,/setarmour ,/vcolor,/vmod');
 });
-
+mp.events.addCommand('asay', async ( player, fullText) => {
+    var aLevel = await this.getAdminLevel(player.name);
+    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+    if(!fullText) return player.outputChatBox("!{ff0000}ERROR: /asay [text]");
+    mp.players.broadcast(`!{#ff0000}Admin ${player.name}(${player.id}):${fullText}`);
+});
 mp.events.addCommand('gotopos',  async (player, fullText ,x,y,z) => {
 
     var aLevel = await this.getAdminLevel(player.name);
@@ -45,7 +52,33 @@ mp.events.addCommand('getpos', async (player) => {
     player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
     console.log(player.position);
 });
-// ------------- Functions ------------- //
+
+mp.events.addCommand('sethealth', async(player,fullText,playerid,health) => {
+
+    var aLevel = await this.getAdminLevel(player.name);
+
+    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+    if(!health) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /sethealth [id] [health]');
+    if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
+    if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
+
+    player.health = Number(health);
+    player.outputChatBox(`!{#ff0000}(HP: ${health})!{#ffffff}שינית את החיים שלך`);
+ });
+ 
+ mp.events.addCommand('setarmour', async(player,fullText,playerid,armour) => {
+
+    var aLevel = await this.getAdminLevel(player.name);
+
+    if(aLevel < 1) return player.outputChatBox("!{#ff0000}you cannot use this command");
+    if(!armour) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /setarmour [id] [armour]');
+    if(!isNumeric(playerid)) return player.outputChatBox("!{#ff0000}playerid must be id");
+    if(!mp.players.exists(Number(playerid))) return player.outputChatBox(`id ${playerid} is not online`);
+
+    player.armour = Number(armour);
+    player.outputChatBox(`!{#ff0000}(HP: ${armour})!{#ffffff}שינית את המגן שלך`);
+ });
+// ------------------ Functions ------------------ //
 function isNumeric(str) {
     if (typeof str != "string") return false 
     return !isNaN(str) && 
@@ -62,7 +95,7 @@ module.exports.getAdminLevel = async function getAdminLevel(username){
                 else if(res[0].length!=0)
                 {
                     resolve(res[0].admin);
-                    console.log(res[0].admin);
+                    //console.log(res[0].admin);
                 }
                 else
                 {

@@ -8,17 +8,6 @@ mp.events.addCommand('cmds', (player) => {
 mp.events.addCommand('id', (player) => {
    player.outputChatBox(`Name:${player.name} ID:${player.id}`);
 });
-mp.events.addCommand('sethealth', (player,health) => {
-   if(!health) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /sethealth [1-1000]');
-   player.health = health;
-   player.outputChatBox(`!{#ff0000}(HP: ${health})!{#ffffff}שינית את החיים שלך`);
-});
-
-mp.events.addCommand('setarmour', (player,armour) => {
-   if(!armour) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /setarmour [1-1000]');
-   player.armour = armour;
-   player.outputChatBox(`!{#ff0000}(HP: ${armour})!{#ffffff}שינית את המגן שלך`);
-});
 
 mp.events.addCommand('setskin', (player, skin) => {
    if(!skin) return player.outputChatBox('!{#ff0000}Error!{#ffffff} /setskin [model]');
