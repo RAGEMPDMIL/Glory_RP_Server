@@ -14,10 +14,6 @@ mp.events.add('server:player:loadPlayerData', async (player) => {
     player.isLogin = true;
 });
 
-function playerSpawn(player) {
-    console.log(`${player.name} has spawned`);
-}
-
 mp.events.add("playerSpawn", playerSpawn => {
 
     if (player.isLogin) {
