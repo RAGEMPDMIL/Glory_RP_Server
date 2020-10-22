@@ -13,9 +13,11 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
         try {
             const res = await attemptLogin(username, password);
             if (res === 'success') {
-                player.name = username;
+
                 const ver = await checkVerifiedAccount(username);
                 if (ver === 'verified') {
+                    player.name = username;
+                    mp.events.call('server:player:loadPlayerData', (player));
                     setUserStatus(username, 1);
                     player.call('client:auth:loginHandler', ['success', username]);
                     console.log(`${username} has successfully logged in`);
