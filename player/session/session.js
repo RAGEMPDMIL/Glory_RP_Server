@@ -14,13 +14,12 @@ mp.events.add('server:player:loadPlayerData', async (player) => {
     player.isLogin = true;
 });
 
-// mp.events.add("playerSpawn", playerSpawn => {
+mp.events.add("playerSpawn", (player) => {
+    if (player.isLogin) {
+        player.call('client:player:playericon');
+    }
 
-//     if (player.isLogin) {
-//         player.call('client:player:playericon');
-//     }
-
-// });
+});
 
 async function getPlayerData(username) {
     return new Promise(function (resolve) {
