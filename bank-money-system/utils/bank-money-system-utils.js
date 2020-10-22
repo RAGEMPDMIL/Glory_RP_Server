@@ -33,7 +33,7 @@ module.exports.transferMoneyOnline = async function trasnferMoneyOnline(originPl
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [Number(originPlayer.bank) - Number(cash), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                console.log('online');
+                console.log('online', originPlayer, destinationPlayer, cash);
                 resolve(false);
             }
         });
@@ -53,7 +53,7 @@ module.exports.transferMoneyOffline = async function trasnferMoneyOffline(origin
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [Number(originPlayer.bank) - Number(cash), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                console.log('offline');
+                console.log('offline', originPlayer, username, bank, cash);
                 reject('Error sql query');
             }
         });
