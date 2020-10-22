@@ -46,7 +46,6 @@ mp.events.add('server:auth:userRegister', async (player, username, password, ema
     try {
         const res = await attempRegistration(username, password, email);
         if (res === "success") {
-            player.name = username;
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
             player.notify(`~g~[Glory:DM] ~w~${player.name} registerd completed`);
