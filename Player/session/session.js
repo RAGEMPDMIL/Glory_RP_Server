@@ -9,6 +9,8 @@ mp.events.add('server:player:loadPlayerData', async (player) => {
     const playerData = await getPlayerData(player.name);
     player.wallet = Number(playerData[0]);
     player.bank = Number(playerData[1]);
+    console.log('data session ' + playerData);
+    console.log('session ' + player.bank);
     player.call('client:playerHud:getHudData', [playerData]);
     player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome Back ${player.name}`);
     player.isLogin = true;
