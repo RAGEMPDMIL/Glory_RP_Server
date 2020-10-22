@@ -2,7 +2,7 @@ const vehicles = require('../data/vehicle-data.json').Vehicles;
 const adminLevel = require('../../admin-system/commands');
 const projectFunctions = require('../../utils/functions-utils');
 
-mp.events.addCommand('vcolor', async (player,fullText,r1,g1,b1,r2,g2,b2) => {
+mp.events.addCommand('vcolor', async (player, fullText, r1, g1, b1, r2, g2, b2) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if(aLevel < 1) {
         return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
@@ -10,7 +10,8 @@ mp.events.addCommand('vcolor', async (player,fullText,r1,g1,b1,r2,g2,b2) => {
     player.veh.setColorRGB(Number(r1), Number(g1), Number(b2), Number(r2), Number(g2), Number(b2));
     player.notify("~g~vehicle color changed");
 });
-mp.events.addCommand('vcall', async(player) => {
+
+mp.events.addCommand('vcall', async (player) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if(aLevel < 1) {
         return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
@@ -19,7 +20,8 @@ mp.events.addCommand('vcall', async(player) => {
     player.putIntoVehicle(player.veh,0);
     player.notify("~g~you called your car !");
 });
-mp.events.addCommand('vehicle', async(player, vehicle) => {
+
+mp.events.addCommand('vehicle', async (player, vehicle) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if (aLevel < 1){
         return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
@@ -31,11 +33,11 @@ mp.events.addCommand('vehicle', async(player, vehicle) => {
         if (!vehicle) {
             return projectFunctions.showErrorChat(player,'הינך צריך להזין שם של רכב קיים');
         }
-        if(player.veh){
+        if (player.veh) {
             player.veh.destroy();
         }
         const selectedVehicle = vehicle.toLowerCase();
-        if(vehicles[selectedVehicle]) {
+        if (vehicles[selectedVehicle]) {
             const playerPos = player.position;
             const random = Math.floor(Math.random() * 255) + 1;
             player.veh = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
@@ -53,7 +55,7 @@ mp.events.addCommand('vehicle', async(player, vehicle) => {
     }
 });
 
-mp.events.addCommand('vmod', async(player, _, modType) => {
+mp.events.addCommand('vmod', async (player, _, modType) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if(aLevel < 1) {
         return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
@@ -104,5 +106,3 @@ mp.events.addCommand('vmod', async(player, _, modType) => {
         projectFunctions.showErrorChat(player,'/vmod nitro,horn,engine,breaks,shields,all');
     }
 });
-
-
