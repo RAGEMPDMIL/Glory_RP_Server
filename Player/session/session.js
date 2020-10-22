@@ -6,12 +6,9 @@ mp.events.add('playerQuit', function (player, exitType, reason) {
 
 // Loads player data when login
 mp.events.add('server:player:loadPlayerData', async (player) => {
-    console.log('in session', player);
     const playerData = await getPlayerData(player.name);
     player.wallet = Number(playerData[0]);
     player.bank = Number(playerData[1]);
-    console.log('data session ' + playerData);
-    console.log('session ' + player.bank);
     player.call('client:playerHud:getHudData', [playerData]);
     player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome Back ${player.name}`);
     player.isLogin = true;
@@ -26,7 +23,6 @@ mp.events.add('server:player:loadPlayerData', async (player) => {
 // });
 
 async function getPlayerData(username) {
-    console.log('session ' + username);
     return new Promise(function (resolve) {
         try {
             db.query('SELECT `money`, `bank` FROM `accounts` WHERE `username` = ?', [username], function (err, result, fields) {

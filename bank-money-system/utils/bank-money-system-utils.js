@@ -33,7 +33,6 @@ module.exports.transferMoneyOnline = async function trasnferMoneyOnline(originPl
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [Number(originPlayer.bank) - Number(cash), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                console.log('online', originPlayer, destinationPlayer, cash);
                 resolve(false);
             }
         });
@@ -49,19 +48,18 @@ module.exports.transferMoneyOnline = async function trasnferMoneyOnline(originPl
 };
 
 module.exports.transferMoneyOffline = async function trasnferMoneyOffline(originPlayer, username, bank, cash) {
-    console.log('utils ' + originPlayer, bank, cash);
     return new Promise(function(resolve, reject){
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [(Number(originPlayer.bank) - Number(cash)), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                reject('Error sql query');
+                resolve(false);
             }
         });
 
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [Number(bank) + Number(cash), username], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                reject('Error sql query');
+                resolve(false);
             }
             resolve(true);
         });
