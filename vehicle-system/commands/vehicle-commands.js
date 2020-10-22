@@ -4,67 +4,63 @@ const projectFunctions = require('../../utils/functions-utils');
 
 mp.events.addCommand('vcolor', async (player, fullText, r1, g1, b1, r2, g2, b2) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
-    if(aLevel < 1) {
-        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
+    if (aLevel < 1) {
+        return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
     }
-    player.veh.setColorRGB(Number(r1), Number(g1), Number(b2), Number(r2), Number(g2), Number(b2));
+    player.spawnedVehicle.setColorRGB(Number(r1), Number(g1), Number(b2), Number(r2), Number(g2), Number(b2));
     player.notify("~g~vehicle color changed");
 });
 
 mp.events.addCommand('vcall', async (player) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
-    if(aLevel < 1) {
-        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
-    }    
-    player.veh.position = player.position;
-    player.putIntoVehicle(player.veh,0);
+    if (aLevel < 1) {
+        return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
+    }
+    player.spawnedVehicle.position = player.position;
+    player.putIntoVehicle(player.spawnedVehicle, 0);
     player.notify("~g~you called your car !");
 });
 
 mp.events.addCommand('vehicle', async (player, vehicle) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
-    if (aLevel < 1){
-        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
-    } else
-    {
+    if (aLevel < 1) {
+        return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
+    } else {
         if (player.vehicle) {
-            return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו כאשר אתה ברכב');
+            return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו כאשר אתה ברכב');
         }
-        if (!vehicle) {
-            return projectFunctions.showErrorChat(player,'הינך צריך להזין שם של רכב קיים');
-        }
-        if (player.veh) {
-            player.veh.destroy();
+        if (player.spawnedVehicle && mp.vehicles.toArray().length > 0) {
+            mp.vehicles.toArray()[player.spawnedVehicle].destroy();
         }
         const selectedVehicle = vehicle.toLowerCase();
         if (vehicles[selectedVehicle]) {
             const playerPos = player.position;
             const random = Math.floor(Math.random() * 255) + 1;
-            player.veh = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
+            player.spawnedVehicle = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
                 numberPlate: `${player.name}`,
                 color: [
                     [random, random, random],
                     [random, random, random]
                 ]
             });
-            player.putIntoVehicle(player.veh, 0);
+            player.putIntoVehicle(player.spawnedVehicle, 0);
             player.notify(`~g~you created ${vehicle} !`);
         } else {
-            return projectFunctions.showErrorChat(player,'שם הרכב שהזנת אינו קיים במערכת');
+            return projectFunctions.showErrorChat(player, 'שם הרכב שהזנת אינו קיים במערכת');
         }
     }
 });
 
 mp.events.addCommand('vmod', async (player, _, modType) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
-    if(aLevel < 1) {
-        return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
-    } 
+    if (aLevel < 1) {
+        return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
+    }
     if (!player.vehicle) {
-        return projectFunctions.showErrorChat(player,'הינך יכול להשתמש בפקודה זו כאשר אתה ברכב');
+        return projectFunctions.showErrorChat(player, 'הינך יכול להשתמש בפקודה זו כאשר אתה ברכב');
     }
     if (!modType) {
-        return projectFunctions.showErrorChat(player,'/vmod nitro,horn,engine,breaks,shields,all');
+        return projectFunctions.showErrorChat(player, '/vmod nitro,horn,engine,breaks,shields,all');
     }
     if (modType == 'nitro') {
 
@@ -102,7 +98,7 @@ mp.events.addCommand('vmod', async (player, _, modType) => {
         player.vehicle.setMod(parseInt(11), parseInt(3));
         player.notify("~g~you added all the mods !");
 
-    } else{
-        projectFunctions.showErrorChat(player,'/vmod nitro,horn,engine,breaks,shields,all');
+    } else {
+        projectFunctions.showErrorChat(player, '/vmod nitro,horn,engine,breaks,shields,all');
     }
 });
