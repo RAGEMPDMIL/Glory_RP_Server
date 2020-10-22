@@ -24,31 +24,32 @@ mp.events.addCommand('vcall', async (player) => {
 mp.events.addCommand('vehicle', async (player, vehicle) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if (aLevel < 1) {
-        return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
+        return projectFunctions.showErrorChat(player, 'Only admins can use this command');
     } else {
         if (player.vehicle) {
-            return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו כאשר אתה ברכב');
+            return projectFunctions.showErrorChat(player, 'You can\'t call a vehcile while inside one');
         }
-        if (player.spawnedVehicle && mp.vehicles.toArray().length > 0) {
-            console.log(mp.vehicles.toArray()[player.spawnedVehicle]);
-            mp.vehicles.toArray()[player.spawnedVehicle].destroy();
-        }
+
         const selectedVehicle = vehicle.toLowerCase();
         if (vehicles[selectedVehicle]) {
-            const playerPos = player.position;
-            const random = Math.floor(Math.random() * 255) + 1;
-            player.spawnedVehicle = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
-                numberPlate: `${player.name}`,
-                color: [
-                    [random, random, random],
-                    [random, random, random]
-                ]
-            });
-            player.putIntoVehicle(player.spawnedVehicle, 0);
-            player.notify(`~g~you created ${vehicle} !`);
-        } else {
-            return projectFunctions.showErrorChat(player, 'שם הרכב שהזנת אינו קיים במערכת');
+            return projectFunctions.showErrorChat(player, 'This vehicle doe\'n not exist');
         }
+
+        if (player.spawnedVehicle && mp.vehicles.toArray().length > 0) {
+            mp.vehicles.toArray()[player.spawnedVehicle].destroy();
+        }
+        const playerPos = player.position;
+        const random = Math.floor(Math.random() * 255) + 1;
+        player.spawnedVehicle = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
+            numberPlate: `${player.name}`,
+            color: [
+                [random, random, random],
+                [random, random, random]
+            ]
+        });
+        player.putIntoVehicle(player.spawnedVehicle, 0);
+        player.notify(`~g~you created ${vehicle} !`);
+
     }
 });
 
