@@ -6,6 +6,7 @@ mp.events.add('playerQuit', function (player, exitType, reason) {
 
 // Loads player data when login
 mp.events.add('server:player:loadPlayerData', async (player) => {
+    console.log('in session', player);
     const playerData = await getPlayerData(player.name);
     player.wallet = Number(playerData[0]);
     player.bank = Number(playerData[1]);
