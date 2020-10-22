@@ -25,6 +25,7 @@ mp.events.add("playerSpawn", playerSpawn => {
 });
 
 function getPlayerData(username) {
+    console.log('session ' + username);
     return new Promise(function (resolve) {
         try {
             db.query('SELECT `money`, `bank` FROM `accounts` WHERE `username` = ?', [username], function (err, result, fields) {
