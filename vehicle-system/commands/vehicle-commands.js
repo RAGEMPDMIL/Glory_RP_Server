@@ -36,8 +36,13 @@ mp.events.addCommand('vehicle', async (player, vehicle) => {
         }
 
         if (player.spawnedVehicle && mp.vehicles.toArray().length > 0) {
-            mp.vehicles.toArray()[player.spawnedVehicle].destroy();
+            const destroyVehicle = mp.vehicles.toArray().find((v) => {
+                return v === player.spawnedVehicle;
+            });
+
+            destroyVehicle.destroy();
         }
+
         const playerPos = player.position;
         const random = Math.floor(Math.random() * 255) + 1;
         player.spawnedVehicle = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
