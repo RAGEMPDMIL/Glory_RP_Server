@@ -70,14 +70,14 @@ mp.events.addCommand('transfermoney', async (player, fullText, username, cash) =
         const offlinePlayerData = await moneySystemFunctions.getMoneyInfo(username);
         await moneySystemFunctions.transferMoneyOffline(player, username, Number(offlinePlayerData[0]), Number(cash));
         projectFunctions.showServerMessage(player, `You transfered $${cash} to ${username}`);
-        player.bank -= cash;
+        player.bank -= Number(cash);
         player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
     } else {
         await moneySystemFunctions.transferMoneyOnline(player, destinationPlayer, Number(cash));
         projectFunctions.showServerMessage(player, `You transfered $${cash} to ${username}`);
         projectFunctions.showServerMessage(destinationPlayer, `You recived $${cash} from ${player.name}`);
-        player.bank -= cash;
-        destinationPlayer.bank += cash;
+        player.bank -= Number(cash);
+        destinationPlayer.bank += Number(cash);
         player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
         destinationPlayer.call('client:playerHud:setMoneyInfo', [destinationPlayer.bank, destinationPlayer.wallet]);
     }
