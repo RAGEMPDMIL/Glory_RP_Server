@@ -31,7 +31,7 @@ mp.events.addCommand('vehicle', async (player, vehicle) => {
         }
 
         const selectedVehicle = vehicle.toLowerCase();
-        if (vehicles[selectedVehicle]) {
+        if (!vehicles[selectedVehicle]) {
             return projectFunctions.showErrorChat(player, 'This vehicle doe\'n not exist');
         }
 
