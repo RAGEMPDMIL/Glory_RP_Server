@@ -10,6 +10,7 @@ require('./authentication/authentication');
 require('./player/session/session');
 require('./player/teleports/teleports');
 require('./player/death/player-death');
+require('./player/blips/player-blips');
 
 // Commands
 require('./server-commands/player-commands/player-commands');
