@@ -62,8 +62,8 @@ mp.events.addCommand('transfermoney', async (player, fullText, username, cash) =
         return projectFunctions.showErrorChat(player, 'User doe\'s not exist');
     }
 
-    const destinationPlayer = mp.players.toArray().find((player) => {
-        return player.name === username;
+    const destinationPlayer = mp.players.toArray().find((p) => {
+        return p.name === username;
     });
 
     if(!destinationPlayer) {
