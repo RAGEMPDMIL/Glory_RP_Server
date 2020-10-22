@@ -5,16 +5,20 @@ mp.events.add('playerQuit', function (player, exitType, reason) {
 });
 
 // Loads player data when login
-mp.events.add('server:player:loadPlayerData', async (player) => {
-    console.log('in session', player);
-    const playerData = await getPlayerData(player.name);
-    player.wallet = Number(playerData[0]);
-    player.bank = Number(playerData[1]);
+mp.events.add('server:player:loadPlayerData', async (player ,username) => {
+    const loggedPlayer = mp.players.toArray().find((p) => {
+        return p.name === username;
+    });
+
+    console.log('in session', username);
+    const playerData = await getPlayerData(username);
+    loggedPlayer.wallet = Number(playerData[0]);
+    loggedPlayer.bank = Number(playerData[1]);
     console.log('data session ' + playerData);
-    console.log('session ' + player.bank);
+    console.log('session ' + loggedPlayer.bank);
     player.call('client:playerHud:getHudData', [playerData]);
-    player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome Back ${player.name}`);
-    player.isLogin = true;
+    player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome Back ${username}`);
+    loggedPlayer.isLogin = true;
 });
 
 // mp.events.add("playerSpawn", playerSpawn => {
