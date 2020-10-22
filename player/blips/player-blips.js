@@ -9,6 +9,7 @@ mp.events.add('server:playerBlips:addBlip', (player) => {
 	blips[player.name].name = player.name;
 	blips[player.name].dimension = player.dimension;
 	blips[player.name].colour = BlipColor;
+	player.call('client:playerBlip:hideSelfBlip', [blips[player.name]]);
 });
 
 mp.events.add('playerSpawn', (player) =>
@@ -17,7 +18,8 @@ mp.events.add('playerSpawn', (player) =>
         blips[player.name] = mp.blips.new(BlipIcon, player.position);
         blips[player.name].name = player.name;
         blips[player.name].dimension = player.dimension;
-        blips[player.name].colour = BlipColor;
+		blips[player.name].colour = BlipColor;
+		player.call('client:playerBlip:hideSelfBlip', [blips[player.name]]);
     }
 });
 
@@ -35,14 +37,13 @@ mp.events.add('playerQuit', (player, exitType, reason) => {
 
 function UpdateBlipPositions()
 {
-	mp.players.forEach( (player, id) => {
+	mp.players.forEach((player, id) => {
 		if (blips[player.name] && player.health > 0 && player.isLogin) {
 			blips[player.name].position = player.position;
 		}
 	});
 }
 
-//Calls the update function every second
 setInterval(function(){
 	UpdateBlipPositions();
 }, 1000);
