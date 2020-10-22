@@ -16,15 +16,15 @@ mp.events.add('server:player:loadPlayerData', async (player) => {
     player.isLogin = true;
 });
 
-mp.events.add("playerSpawn", playerSpawn => {
+// mp.events.add("playerSpawn", playerSpawn => {
 
-    if (player.isLogin) {
-        player.call('client:player:playericon');
-    }
+//     if (player.isLogin) {
+//         player.call('client:player:playericon');
+//     }
 
-});
+// });
 
-function getPlayerData(username) {
+async function getPlayerData(username) {
     console.log('session ' + username);
     return new Promise(function (resolve) {
         try {
