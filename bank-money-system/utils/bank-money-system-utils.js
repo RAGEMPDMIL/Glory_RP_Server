@@ -53,7 +53,7 @@ module.exports.transferMoneyOffline = async function trasnferMoneyOffline(origin
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [(Number(originPlayer.bank) - Number(cash)), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                console.log('offline', originPlayer);
+                console.log('offline', originPlayer.bank);
                 reject('Error sql query');
             }
         });
