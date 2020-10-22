@@ -5,6 +5,7 @@ const {
 } = require('nodemailer/lib/mailer');
 const db = require('../modules/db');
 const mailer = require('../modules/mailer');
+
 // Handles user attempt to login
 mp.events.add('server:auth:userLogin', async (player, username, password) => {
     let loggedAccount = await isOnline(username);
@@ -20,7 +21,7 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
                     console.log(`${username} has successfully logged in`);
                 } else {
                     player.call('client:auth:showVerificationPage');
-                    var mail = await checkMailToVerified(username);
+                    player.email = await checkMailToVerified(username);
                     mp.events.call('server:auth:confirmationMail', mail);
                 }
             } else {
@@ -39,16 +40,17 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
 mp.events.add('server:auth:resendMail', async (player) => {
     var mail = await checkMailToVerified(player.name);
     mp.events.call('server:auth:confirmationMail', mail);
-})
+});
 
 // Handles user attempt to register.
 mp.events.add('server:auth:userRegister', async (player, username, password, email) => {
     try {
         const res = await attempRegistration(username, password, email);
         if (res === "success") {
+            player.email = email;
             console.log(`${username} account has successfully created`);
             player.call('client:auth:registerHandler', ['success']);
-            player.notify(`~g~[Glory:DM] ~w~${player.name} registerd completed`);
+            // player.notify(`~g~[Glory:DM] ~w~${username} registerd completed`);
             mp.events.call('server:auth:confirmationMail', email);
         } else {
             player.call('client:auth:registerHandler', ['userExists']);
@@ -69,13 +71,17 @@ mp.events.add('server:auth:confirmationMail', (email) => {
     };
     mailer.sendMail(mailOptions, function (error, info) {
         if (error) {
-            console.log(error);
+            console.log('mail error ' + error);
         } else {
             console.log('Email sent: ' + info.response);
         }
     });
     try {
-        db.query('UPDATE `accounts` SET `verification_code` = ? WHERE `email` = ?', [verificationCode, email], function (error, result, fields) {});
+        db.query('UPDATE `accounts` SET `verification_code` = ? WHERE `email` = ?', [verificationCode, email], function (error, result, fields) {
+            if(error) {
+                console.log(error);
+            }
+        });
 
     } catch (e) {
         console.log(e);
@@ -85,9 +91,10 @@ mp.events.add('server:auth:confirmationMail', (email) => {
 //check the verification mode from the verification form.
 mp.events.add('server:register:checkVarificationMode', async (player, insertedCode) => {
     var verificationCode = await getVerificationCode(player);
-    if (verificationCode == insertedCode) {
+    console.log(verificationCode, insertedCode, player.email);
+    if (Number(verificationCode) === Number(insertedCode)) {
         try {
-            db.query('UPDATE `accounts` SET `verified` = ? WHERE `username` = ?', [1, player.name], function (error, result, fields) {
+            db.query('UPDATE `accounts` SET `verified` = ? WHERE `email` = ?', [1, player.email], function (error, result, fields) {
                 if (error) {
                     console.log(error);
                 } else console.log("made it");
@@ -105,7 +112,7 @@ mp.events.add('server:register:checkVarificationMode', async (player, insertedCo
 function getVerificationCode(player) {
     return new Promise(function (resolve) {
         try {
-            db.query("SELECT `verification_code` FROM `accounts` WHERE `username`=?", [player.name], function (error, res, fields) {
+            db.query("SELECT `verification_code` FROM `accounts` WHERE `email`=?", [player.email], function (error, res, fields) {
                 if (res[0].length != 0) {
                     resolve(res[0].verification_code);
                 } else {

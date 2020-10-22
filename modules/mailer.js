@@ -5,7 +5,10 @@ var transporter = nodemailer.createTransport({
     auth:{
         user: 'ragempdmil@gmail.com',
         pass: 'yuvalofek!'
-    }
+    },
+    tls: {
+      rejectUnauthorized: false
+  }
 });
 
 /*var mailOptions = {
