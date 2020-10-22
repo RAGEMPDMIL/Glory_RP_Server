@@ -17,8 +17,7 @@ module.exports.showServerMessage = function showServerMessage(player, message) {
 module.exports.isUserExists = async function isUserExists(username) {
     return new Promise(function (resolve) {
         try {
-            db.query('SELECT `username` FROM `accounts` WHERE `username` = ?', [username], (err, result, fields) => {
-                console.log(result);
+            db.query('SELECT `username` FROM `accounts` WHERE BINARY `username` = ?', [username], (err, result, fields) => {
                 if(err) {
                     console.log(err);
                     resolve(false);

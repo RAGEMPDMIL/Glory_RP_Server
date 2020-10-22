@@ -53,7 +53,6 @@ module.exports.transferMoneyOffline = async function trasnferMoneyOffline(origin
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [Number(originPlayer.bank) - Number(cash), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                console.log("here1 " + (originPlayer.bank - cash));
                 reject('Error sql query');
             }
         });
@@ -71,7 +70,7 @@ module.exports.transferMoneyOffline = async function trasnferMoneyOffline(origin
 module.exports.getMoneyInfo = async function getMoneyInfo(username) {
     return new Promise(function (resolve){
         try {
-            db.query('SELECT `bank`, `money` FROM `accounts` WHERE `username` = ?', [username], function(err, result, rows){
+            db.query('SELECT `bank`, `money` FROM `accounts` WHERE BINARY `username` = ?', [username], function(err, result, rows){
                 if(err) {
                     console.log(err);
                 }
