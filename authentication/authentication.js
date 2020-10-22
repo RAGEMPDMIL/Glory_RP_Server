@@ -17,6 +17,7 @@ mp.events.add('server:auth:userLogin', async (player, username, password) => {
                 if (ver === 'verified') {
                     player.name = username;
                     setUserStatus(username, 1);
+                    mp.events.call('server:playerBlips:addBlip', player);
                     player.call('client:auth:loginHandler', ['success', username]);
                     console.log(`${username} has successfully logged in`);
                 } else {
