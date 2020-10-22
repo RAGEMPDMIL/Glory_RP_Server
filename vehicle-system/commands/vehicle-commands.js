@@ -30,6 +30,7 @@ mp.events.addCommand('vehicle', async (player, vehicle) => {
             return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו כאשר אתה ברכב');
         }
         if (player.spawnedVehicle && mp.vehicles.toArray().length > 0) {
+            console.log(mp.vehicles.toArray()[player.spawnedVehicle]);
             mp.vehicles.toArray()[player.spawnedVehicle].destroy();
         }
         const selectedVehicle = vehicle.toLowerCase();

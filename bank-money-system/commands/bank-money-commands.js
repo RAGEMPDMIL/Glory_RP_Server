@@ -62,21 +62,18 @@ mp.events.addCommand('transfermoney', async (player, fullText, username, cash) =
         return projectFunctions.showErrorChat(player, 'User doe\'s not exist');
     }
 
-    let destinationPlayer;
-    mp.players.forEach((p) => {
-        if (p.name.toLowerCase() === username.toLowerCase()) {
-            destinationPlayer = p;
-        }
+    const destinationPlayer = mp.players.toArray().find((player) => {
+        return player.name === username;
     });
 
     if(!destinationPlayer) {
         const offlinePlayerData = await moneySystemFunctions.getMoneyInfo(username);
-        await moneySystemFunctions.transferMoneyOffline(player, username, offlinePlayerData[0], cash);
+        await moneySystemFunctions.transferMoneyOffline(player, username, Number(offlinePlayerData[0]), Number(cash));
         projectFunctions.showServerMessage(player, `You transfered $${cash} to ${username}`);
         player.bank -= cash;
         player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
     } else {
-        await moneySystemFunctions.transferMoneyOnline(player, destinationPlayer, cash);
+        await moneySystemFunctions.transferMoneyOnline(player, destinationPlayer, Number(cash));
         projectFunctions.showServerMessage(player, `You transfered $${cash} to ${username}`);
         projectFunctions.showServerMessage(destinationPlayer, `You recived $${cash} from ${player.name}`);
         player.bank -= cash;
