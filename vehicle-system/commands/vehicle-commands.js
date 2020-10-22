@@ -22,6 +22,10 @@ mp.events.addCommand('vcall', async (player) => {
 });
 
 mp.events.addCommand('vehicle', async (player, vehicle) => {
+    if(!vehicle) {
+        return projectFunctions.showErrorChat(player, 'You muset specify a vehicle to spawn');
+    }
+
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if (aLevel < 1) {
         return projectFunctions.showErrorChat(player, 'Only admins can use this command');
