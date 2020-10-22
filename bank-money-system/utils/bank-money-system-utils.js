@@ -30,6 +30,7 @@ module.exports.withdrawMoney = async function withdrawMoney(player, cash) {
 
 module.exports.transferMoneyOnline = async function trasnferMoneyOnline(originPlayer, destinationPlayer, cash) {
     return new Promise(function(resolve){
+        console.log(originPlayer, destinationPlayer, cash);
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [originPlayer.bank - cash, originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
@@ -48,18 +49,19 @@ module.exports.transferMoneyOnline = async function trasnferMoneyOnline(originPl
 };
 
 module.exports.transferMoneyOffline = async function trasnferMoneyOffline(originPlayer, username, bank, cash) {
-    return new Promise(function(resolve){
+    return new Promise(function(resolve, reject){
+        console.log(originPlayer, username, bank, cash);
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [originPlayer.bank - cash, originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                resolve(false);
+                reject('Error sql query');
             }
         });
 
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [bank + cash, username], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                resolve(false);
+                reject('Error sql query');
             }
             resolve(true);
         });
