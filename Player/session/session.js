@@ -11,8 +11,20 @@ mp.events.add('server:player:loadPlayerData', async (player) => {
     player.bank = Number(playerData[1]);
     player.call('client:playerHud:getHudData', [playerData]);
     player.notify(`<C>~g~[Glory:DM]</C>~w~ Welcome Back ${player.name}`);
+    player.isLoggin = true;
 });
 
+function playerSpawn(player) {
+    console.log(${player.name} has spawned);
+  }
+mp.events.add("playerSpawn", playerSpawn => {
+
+    if(player.isLoggin)
+    {
+        player.call('client:player:playericon');
+    }
+
+});
 function getPlayerData(username) {
     return new Promise(function (resolve) {
         try {
