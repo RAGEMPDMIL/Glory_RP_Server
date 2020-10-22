@@ -49,11 +49,11 @@ module.exports.transferMoneyOnline = async function trasnferMoneyOnline(originPl
 };
 
 module.exports.transferMoneyOffline = async function trasnferMoneyOffline(originPlayer, username, bank, cash) {
+    console.log('utils ' + originPlayer, bank, cash);
     return new Promise(function(resolve, reject){
         db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [(Number(originPlayer.bank) - Number(cash)), originPlayer.name], (err, result, fields) => {
             if(err) {
                 console.log(err);
-                console.log('offline', originPlayer.bank);
                 reject('Error sql query');
             }
         });
