@@ -78,3 +78,17 @@ module.exports.getMoneyInfo = async function getMoneyInfo(username) {
         } catch(e) {console.log(e);}
     });
 };
+
+module.exports.playerChangeBank = async function playerChangeBank(player, amount) {
+    return new Promise(function(resolve) {
+        try {
+            db.query('UPDATE `accounts` SET `bank` = ? WHERE `username` = ?', [player.bank - Number(amount) , player.name], (err, result, fields) => {
+                if(err) {
+                    console.log(e);
+                    resolve(false);
+                }
+                resolve(true);
+            });
+        } catch(e) { console.log(e); }
+    });
+};
