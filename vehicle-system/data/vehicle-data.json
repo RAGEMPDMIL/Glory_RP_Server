@@ -2,7 +2,7 @@
     "Vehicles": {
         "mazda-rx7": {
             "hash": "rx7cwest",
-	        "price" : 300000,
+            "price": 300000,
             "colors": {
 
             },
@@ -12,7 +12,7 @@
         },
         "leon": {
             "hash": "seatl",
-	        "price" : 50000,
+            "price": 50000,
             "colors": {
 
             },
@@ -22,7 +22,7 @@
         },
         "ftype": {
             "hash": "FtypeC",
-	        "price" : 1000000,
+            "price": 1000000,
             "colors": {
 
             },
@@ -32,7 +32,7 @@
         },
         "bugatti-chiron": {
             "hash": "2019chiron",
-	        "price" : 10000000,
+            "price": 10000000,
             "colors": {
 
             },
@@ -42,7 +42,7 @@
         },
         "mercedes-s500": {
             "hash": "s500w222",
-	        "price" : 1000000,
+            "price": 1000000,
             "colors": {
 
             },
@@ -52,7 +52,7 @@
         },
         "tesla-x": {
             "hash": "teslax",
-	        "price" : 2000000,
+            "price": 2000000,
             "colors": {
 
             },
@@ -62,7 +62,7 @@
         },
         "bmw-m5": {
             "hash": "m5e60",
-	        "price" : 5000000,
+            "price": 5000000,
             "colors": {
 
             },
@@ -72,7 +72,7 @@
         },
         "audi-r8": {
             "hash": "r820",
-	        "price" : 5000000,
+            "price": 5000000,
             "colors": {
 
             },
@@ -82,7 +82,23 @@
         },
         "tesla-s": {
             "hash": "models",
-	        "price" : 5000000,
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {}
+        },
+        "corvette-zr1": {
+            "hash": "2019zr1",
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "lamborghini-centenario": {
+            "hash": "lp770",
             "colors": {
 
             },
@@ -92,4 +108,3 @@
         }
     }
 }
-
