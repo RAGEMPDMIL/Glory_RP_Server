@@ -1,0 +1,147 @@
+{
+    "Melee": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "dagger": {"hash": "0x92A27487","price":500,"id":"weapon_dagger"},
+            "bat": {"hash": "0x958A4A8F","price":450,"id":"weapon_bat"},
+            "bottle": {"hash": "0xF9E6AA4B", "price":350},"id":"weapon_bottle",
+            "crowbar": {"hash": "0x84BD7BFD", "price":200,"id":"weapon_crowbar"},
+            "unarmed": {"hash": "0xA2719263", "price":0,"id":"weapon_unarmed"},
+            "flashlight":{"hash": "0x8BB05FD7","price":100,"id":"weapon_flashlight"},
+            "golfclub": {"hash":"0x440E4788","price":350,"id":"weapon_golfclub"},
+            "hammer": {"hash":"0x4E875F73","price":500,"id":"weapon_hammer"},
+            "hatchet": {"hash":"0xF9DCBF2D","price":500,"id":"weapon_hatchet"},
+            "knuckle": {"hash":"0xD8DF3C3C","price":500,"id":"weapon_knuckle"},
+            "knife": {"hash":"0x99B507EA","price":500,"id":"weapon_knife"},
+            "machete": {"hash":"0xDD5DF8D9","price":500,"id":"weapon_machete"},
+            "switchblade": {"hash":"0xDFE37640","price":500,"id":"weapon_switchblade"},
+            "nightstick": {"hash":"0x678B81B1","price":500,"id":"weapon_nightstick"},
+            "wrench": {"hash":"0x19044EE0","price":500,"id":"weapon_wrench"},
+            "battleaxe": {"hash":"0xCD274149","price":500,"id":"weapon_battleaxe"},
+            "poolcue": {"hash":"0x94117305","price":500,"id":"weapon_poolcue"},
+            "stone_hatchet": {"hash":"0x3813FC08","price":500,"id":"weapon_stone_hatchet"}
+        }
+    },
+    "Handguns": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "pistol": {"hash":"0x1B06D571","price":528,"id":"weapon_pistol"},
+            "pistol_mk2": {"hash":"0xBFE256D4","price":500,"id":"weapon_pistol_mk2"},
+            "combatpistol": {"hash":"0x5EF9FEC4","price":500,"id":"weapon_combatpistol"},
+            "appistol": {"hash":"0x22D8FE39","price":500,"id":"weapon_appistol"},
+            "stungun": {"hash":"0x3656C8C1","price":500,"id":"weapon_stungun"},
+            "pistol50": {"hash":"0x99AEEB3B","price":500,"id":"weapon_pistol50"},
+            "snspistol": {"hash":"0xBFD21232","price":500,"id":"weapon_snspistol"},
+            "snspistol_mk2": {"hash":"0x88374054","price":500,"id":"weapon_snspistol_mk2"},
+            "heavypistol": {"hash":"0xD205520E","price":500,"id":"weapon_heavypistol"},
+            "vintagepistol": {"hash":"0x83839C4","price":500,"id":"weapon_vintagepistol"},
+            "flaregun": {"hash":"0x47757124","price":500,"id":"weapon_flaregun"},
+            "marksmanpistol": {"hash":"0xDC4DB296","price":500,"id":"weapon_marksmanpistol"},
+            "revolver": {"hash":"0xC1B3C3D1","price":500,"id":"weapon_revolver"},
+            "revolver_mk2": {"hash":"0xCB96392F","price":500,"id":"weapon_revolver_mk2"},
+            "doubleaction": {"hash":"0x97EA20B8","price":500,"id":"weapon_doubleaction"},
+            "raypistol": {"hash":"0xAF3696A1","price":500,"id":"weapon_raypistol"},
+            "ceramicpistol": {"hash":"0x2B5EF5EC","price":500,"id":"weapon_ceramicpistol"},
+            "navyrevolver": {"hash":"0x917F6C8C","price":500,"id":"weapon_navyrevolver"}
+        }
+    },
+    "Smg": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "microsmg": {"hash":"0x13532244","price":500,"id":"weapon_microsmg"},
+            "smg": {"hash":"0x2BE6766B","price":500,"id":"weapon_smg"},
+            "smg_mk2": {"hash":"0x78A97CD0","price":500,"id":"weapon_smg_mk2"},
+            "assaultsmg": {"hash":"0xEFE7E2DF","price":500,"id":"weapon_assaultsmg"},
+            "combatpdw": {"hash":"0xA3D4D34","price":500,"id":"weapon_combatpdw"},
+            "machinepistol": {"hash":"0xDB1AA450","price":500,"id":"weapon_machinepistol"},
+            "minismg": {"hash":"0xBD248B55","price":500,"id":"weapon_minismg"},
+            "raycarbine": {"hash":"0x476BF155","price":500,"id":"weapon_raycarbine"}
+        }
+    },
+    "Shotguns": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "pumpshotgun": {"hash":"0x1D073A89","price":500,"id":"weapon_pumpshotgun"},
+            "pumpshotgun_mk2": {"hash":"0x555AF99A","price":500,"id":"weapon_pumpshotgun_mk2"},
+            "sawnoffshotgun": {"hash":"0x7846A318","price":500,"id":"weapon_sawnoffshotgun"},
+            "assaultshotgun": {"hash":"0xE284C527","price":500,"id":"weapon_assaultshotgun"},
+            "bullpupshotgun": {"hash":"0x9D61E50F","price":500,"id":"weapon_bullpupshotgun"},
+            "musket": {"hash":"0xA89CB99E","price":500,"id":"weapon_musket"},
+            "heavyshotgun": {"hash":"0x3AABBBAA","price":500,"id":"weapon_heavyshotgun"},
+            "dbshotgun": {"hash":"0xEF951FBB","price":500,"id":"weapon_dbshotgun"},
+            "autoshotgun": {"hash":"0x12E82D3D","price":500,"id":"weapon_autoshotgun"}
+        }
+    },
+    "Assault-Rifles": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "assaultrifle": {"hash":"0xBFEFFF6D","price":500,"id":"weapon_assaultrifle"},
+            "assaultrifle_mk2": {"hash":"0x394F415C","price":500,"id":"weapon_assaultrifle_mk2"},
+            "carbinerifle": {"hash":"0x83BF0278","price":500,"id":"weapon_carbinerifle"},
+            "carbinerifle_mk2": {"hash":"0xFAD1F1C9","price":500,"id":"weapon_carbinerifle_mk2"},
+            "advancedrifle": {"hash":"0xAF113F99","price":500,"id":"weapon_advancedrifle"},
+            "specialcarbine": {"hash":"0xC0A3098D","price":500,"id":"weapon_specialcarbine"},
+            "specialcarbine_mk2": {"hash":"0x969C3D67","price":500,"id":"weapon_specialcarbine_mk2"},
+            "bullpuprifle": {"hash":"0x7F229F94","price":500,"id":"weapon_bullpuprifle"},
+            "bullpuprifle_mk2": {"hash":"0x84D6FAFD","price":500,"id":"weapon_bullpuprifle_mk2"},
+            "compactrifle": {"hash":"0x624FE830","price":500,"id":"weapon_compactrifle"}
+        }
+    },
+    "Machine-Guns": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "mg": {"hash":"0x9D07F764","price":500,"id":"weapon_mg"},
+            "combatmg": {"hash":"0x7FD62962","price":500,"id":"weapon_combatmg"},
+            "combatmg_mk2": {"hash":"0xDBBD7280","price":500,"id":"weapon_combatmg_mk2"},
+            "gusenberg": {"hash":"0x61012683","price":500,"id":"weapon_gusenberg"}
+        }
+    },
+    "Sniper-Rifles": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "sniperrifle": {"hash":"0x5FC3C11","price":500,"id":"weapon_sniperrifle"},
+            "heavysniper": {"hash":"0xC472FE2","price":500,"id":"weapon_heavysniper"},
+            "heavysniper_mk2": {"hash":"0xA914799","price":500,"id":"weapon_heavysniper_mk2"},
+            "marksmanrifle": {"hash":"0xC734385A","price":500,"id":"weapon_marksmanrifle"},
+            "marksmanrifle_mk2": {"hash":"0x6A6C02E0","price":500,"id":"weapon_marksmanrifle_mk2"}
+        }
+    },
+    "Heavy-Weapons": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "rpg": {"hash":"0xB1CA77B1","price":500,"id":"weapon_rpg"},
+            "grenadelauncher": {"hash":"0xA284510B","price":500,"id":"weapon_grenadelauncher"},
+            "grenadelauncher_smoke": {"hash":"0x4DD2DC56","price":500,"id":"weapon_grenadelauncher_sm"},
+            "minigun": {"hash":"0x42BF8A85","price":500,"id":"weapon_minigun"},
+            "firework": {"hash":"0x7F7497E5","price":500,"id":"weapon_firework"},
+            "railgun": {"hash":"0x6D544C99","price":500,"id":"weapon_railgun"},
+            "hominglauncher": {"hash":"0x63AB0442","price":500,"id":"weapon_hominglauncher"},
+            "compactlauncher": {"hash":"0x781FE4A","price":500,"id":"weapon_compactlauncher"},
+            "rayminigun": {"hash":"0xB62D1F67","price":500,"id":"weapon_rayminigun"}
+        }
+    },
+    "Throwables": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "grenade": {"hash":"0x93E220BD","price":500,"id":"weapon_grenade"},
+            "bzgas": {"hash":"0xA0973D5E","price":500,"id":"weapon_bzgas"},
+            "smokegrenade": {"hash":"0xFDBC8A50","price":500,"id":"weapon_molotov"},
+            "flare": {"hash":"0x497FACC3","price":500,"id":"weapon_stickybomb"},
+            "molotov": {"hash":"0x24B17070","price":500,"id":"weapon_proxmine"},
+            "stickybomb": {"hash":"0x2C3731D9","price":500,"id":"weapon_snowball"},
+            "proxmine": {"hash":"0xAB564B93","price":500,"id":"weapon_pipebomb"},
+            "snowball": {"hash":"0x787F0BB","price":500,"id":"weapon_ball"},
+            "pipebomb": {"hash":"0xBA45E8B8","price":500,"id":"weapon_smokegrenade"},
+            "ball": {"hash":"0x23C9F95C","price":500,"id":"weapon_flare"}
+        }
+    },
+    "Misc": {
+        "Description": "Melee weapons are deadly in close fights",
+        "Weapons": {
+            "petrolcan": {"hash":"0x34A67B97","price":500,"id":"weapon_petrolcan"},
+            "fireextinguisher": {"hash":"0x60EC506","price":500,"id":"weapon_fireextinguisher"},
+            "parachute": {"hash":"0xFBAB5776","price":500,"id":"gadget_parachute"},
+            "hazardcan": {"hash":"0xBA536372","price":500,"id":"weapon_hazardcan"}
+        }
+    }
+}

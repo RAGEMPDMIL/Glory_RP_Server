@@ -43,6 +43,9 @@ require('./vehicle-system/commands/vehicle-commands');
 require('./bank-money-system/events/bank-money-system-events');
 require('./bank-money-system/commands/bank-money-commands');
 
+// Gun System
+require('./gun-system/commands/gun-system-commands');
+
 // admin-system
 require('./admin-system/commands');
 const server = require('./server-status/server');
