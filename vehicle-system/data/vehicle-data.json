@@ -90,6 +90,7 @@
         },
         "corvette-zr1": {
             "hash": "2019zr1",
+            "price": 5000000,
             "colors": {
 
             },
@@ -99,6 +100,147 @@
         },
         "lamborghini-centenario": {
             "hash": "lp770",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "vw-beetle": {
+            "hash": "cox2013",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "vw-golf": {
+            "hash": "golf7r",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "fiat-spider": {
+            "hash": "124spider",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "mini-cooper": {
+            "hash": "cooperworks",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "toyota-yaris": {
+            "hash": "yaris08",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "hyundai-sonata": {
+            "hash": "sonatayfc",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "skoda-karoq": {
+            "hash": "karoq",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "nissan-270r": {
+            "hash": "Nismo270R",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "toyota-tundra": {
+            "hash": "19tundra",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "toyota-4runner": {
+            "hash": "4runner",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "toyota-chr": {
+            "hash": "chr",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "ford-focus-rs": {
+            "hash": "focusrs",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "dodge-charger": {
+            "hash": "16charger",
+            "price": 5000000,
+            "colors": {
+
+            },
+            "mods": {
+
+            }
+        },
+        "dodge-challenger": {
+            "hash": "16challenger",
+            "price": 5000000,
             "colors": {
 
             },
