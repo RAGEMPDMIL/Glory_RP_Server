@@ -1,3 +1,5 @@
+// - - - - - - - - Requires - - - - - - - - //
+
 const db = require('../../modules/db');
 
 const vehicles = require('../data/vehicle-data.json').Vehicles;
@@ -6,7 +8,84 @@ const adminLevel = require('../../admin-system/commands');
 const projectFunctions = require('../../utils/functions-utils');
 const moneySystemFunctions = require('../../bank-money-system/utils/bank-money-system-utils');
 
-mp.events.addCommand('vcolor', async (player, fullText, r1, g1, b1, r2, g2, b2) => {
+// - - - - - - - - Admin Vehicle Commands - - - - - - - - //
+
+mp.events.addCommand('buyvehicle', async(player,fullText,vehname) => {
+
+    if(!vehname) {
+        return projectFunctions.showErrorChat(player, 'You must specify a vehicle to buy');
+    }
+
+    const selectedVehicle = vehname.toLowerCase();
+    if (!vehicles[selectedVehicle]) {
+        return projectFunctions.showErrorChat(player, 'This vehicle doe\'nt not exist');
+    }
+    let vehPrice = vehicles[selectedVehicle].price;
+    console.log(player.bank);
+    console.log(vehPrice);
+    if(player.bank < vehPrice){
+        return projectFunctions.showErrorChat(player, `you need ${vehPrice} to buy ${vehname}`);
+    }
+    else
+    {
+        const result = await moneySystemFunctions.playerChangeBank(player, Number(vehPrice));
+        player.bank = player.bank-vehPrice;
+        player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
+
+        await createPlayerVehicle(player,vehname,vehicles[selectedVehicle].hash);
+        console.log("vehicle created");
+        console.log(player.vehhash);
+        if (player.vehname && mp.vehicles.toArray().length > 0) {
+            const destroyVehicle = mp.vehicles.toArray().find((v) => {
+                return v === player.vehname;
+            });
+    
+            destroyVehicle.destroy();
+        }
+        const playerPos = player.position;
+        player.vehname = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
+            numberPlate: `${player.name}`,
+            color: [
+                [0, 0, 0],
+                [0, 0, 0]
+            ]
+        });
+        player.putIntoVehicle(player.vehname, 0);
+        player.notify(`~g~you bought ${vehname} with!`);
+    }
+
+});
+mp.events.addCommand('vcall', async (player,fullText,vehname) => {
+
+    if(!vehname) return projectFunctions.showErrorChat(player,'/vcall [veh name]');
+    const vehicleDetails = await getPVehicleDetails(player,vehname);
+    if(!vehicleDetails[0]){
+        return projectFunctions.showErrorChat(player,'אין רכב כזה בבעלותך');
+    }
+
+    player.vehhash = vehicleDetails[0];
+    console.log(player.vehhash);
+    const playerPos = player.position;
+    if (player.vehname && mp.vehicles.toArray().length > 0) {
+        const destroyVehicle = mp.vehicles.toArray().find((v) => {
+            return v === player.vehname;
+        });
+
+        destroyVehicle.destroy();
+    }
+    player.vehname = mp.vehicles.new(player.vehhash, playerPos, {
+        numberPlate: `${player.name}`,
+        color: [
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+    });
+    player.putIntoVehicle(player.vehname, 0);
+    player.notify("~g~you called your car !");
+});
+// - - - - - - - - Admin Vehicle Commands - - - - - - - - //
+
+mp.events.addCommand('xvcolor', async (player, fullText, r1, g1, b1, r2, g2, b2) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if (aLevel < 1) {
         return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
@@ -15,7 +94,7 @@ mp.events.addCommand('vcolor', async (player, fullText, r1, g1, b1, r2, g2, b2) 
     player.notify("~g~vehicle color changed");
 });
 
-mp.events.addCommand('vcall', async (player) => {
+mp.events.addCommand('xvcall', async (player) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if (aLevel < 1) {
         return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
@@ -24,43 +103,7 @@ mp.events.addCommand('vcall', async (player) => {
     player.putIntoVehicle(player.spawnedVehicle, 0);
     player.notify("~g~you called your car !");
 });
-mp.events.addCommand('buyvehicle', async(player,fullText,vehicle) => {
-
-    if(!vehicle) {
-        return projectFunctions.showErrorChat(player, 'You must specify a vehicle to buy');
-    }
-
-    const selectedVehicle = vehicle.toLowerCase();
-    if (!vehicles[selectedVehicle]) {
-        return projectFunctions.showErrorChat(player, 'This vehicle doe\'nt not exist');
-    }
-    let vehPrice = vehicles[selectedVehicle].price;
-    console.log(player.bank);
-    console.log(vehPrice);
-    if(player.bank < vehPrice){
-        return projectFunctions.showErrorChat(player, `you need ${vehPrice} to buy ${vehicle}`);
-    }
-    else
-    {
-        const result = await moneySystemFunctions.playerChangeBank(player, Number(vehPrice));
-        player.bank = player.bank-vehPrice;
-        player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
-
-        createPlayerVehicle(player,vehicle,vehicles[selectedVehicle].hash);
-        /*const playerPos = player.position;
-        player.spawnedVehicle = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
-            numberPlate: `${player.name}`,
-            color: [
-                [0, 0, 0],
-                [0, 0, 0]
-            ]
-        });
-        player.putIntoVehicle(player.spawnedVehicle, 0);
-        player.notify(`~g~you bought ${vehicle} with!`);*/
-    }
-
-});
-mp.events.addCommand('vehicle', async (player, vehicle) => {
+mp.events.addCommand('xvehicle', async (player, vehicle) => {
     if(!vehicle) {
         return projectFunctions.showErrorChat(player, 'You must specify a vehicle to spawn');
     }
@@ -101,7 +144,7 @@ mp.events.addCommand('vehicle', async (player, vehicle) => {
     }
 });
 
-mp.events.addCommand('vmod', async (player, _, modType) => {
+mp.events.addCommand('xvmod', async (player, _, modType) => {
     const aLevel = await adminLevel.getAdminLevel(player.name);
     if (aLevel < 1) {
         return projectFunctions.showErrorChat(player, 'אינך יכול להשתמש בפקודה זו');
@@ -153,15 +196,30 @@ mp.events.addCommand('vmod', async (player, _, modType) => {
     }
 });
 
-function createPlayerVehicle(player, vehicle, hash) {
+async function createPlayerVehicle(player, vehicle, hash) {
     return new Promise(function (resolve) {
         try {         
                 db.query('INSERT INTO `vehicles` SET owner = ?, vehicle = ?, hash = ?', [player.name, vehicle, hash], function (error, result, fields) {
                 if (error) {console.log(error);}
-                else {resolve("success")};
-        });
+                else {
+                    resolve("success")
+                    player.vehhash = hash;
+                };
+            });
         } 
         catch (e) 
         {console.log(e);}
     });
 }
+async function getPVehicleDetails(player,vehname) {
+    return new Promise(function (resolve){
+        try {
+            db.query('SELECT `hash` FROM `vehicles` WHERE BINARY `owner` = ? AND `vehicle` = ?', [player.name,vehname], function(err, result, rows){
+                if(err) {
+                    console.log(err);
+                }
+                resolve([result[0].hash]);
+            });
+        } catch(e) {console.log(e);}
+    });
+};
