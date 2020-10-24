@@ -11,8 +11,8 @@ Object.keys(moneySystemColshapes).forEach((value) => {
 mp.events.add("playerEnterColshape", async (player, colshape) => {
     if (availableColshapes.includes(colshape)) {
         player.inBank = true;
-        player.outputChatBox(`!{#74FF33}וברוך שובך לבנק !{#ffffff}${player.name}!{#74FF33} שלום`);
-        player.notify('Press <font color="#00ff00">E</font> for bank actions');
+        player.outputChatBox(`Welcome back to the Maze Bank`);
+        player.notify('Press <font color="#00ff00">E</font> to interace with your bank account');
         player.call('client:moneySystem:moneyUIAvailable');
     }
 });
@@ -21,6 +21,5 @@ mp.events.add("playerExitColshape", (player, colshape) => {
     if (availableColshapes.includes(colshape)) {
         player.call('client:moneySystem:moneyUIUnavailable');
         player.inBank = false;
-        player.outputChatBox(`!{#ffffff}${player.name}!{#74FF33} יצאת מתפריט הבנק, המשך משחק מהנה`);
     }
 });

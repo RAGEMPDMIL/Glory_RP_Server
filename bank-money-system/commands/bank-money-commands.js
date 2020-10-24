@@ -80,5 +80,8 @@ mp.events.addCommand('transfermoney', async (player, fullText, username, cash) =
         destinationPlayer.bank += Number(cash);
         player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
         destinationPlayer.call('client:playerHud:setMoneyInfo', [destinationPlayer.bank, destinationPlayer.wallet]);
+        if(destinationPlayer.inBank) {
+            destinationPlayer.call('client:moneyBankSystem:loadPlayer', [destinationPlayer.bank, destinationPlayer.wallet]);
+        }
     }
 });
