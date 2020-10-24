@@ -11,5 +11,61 @@
             "color": 2,
             "shortRange": false
         }
+    },
+    "ATM1": {
+        "sprite": 207,
+        "position": {
+            "x": 89.46865844726562,
+            "y": 2.064429759979248,
+            "z": 68.3354721069336
+        },
+        "options": {
+            "name": "ATM",
+            "color": 2,
+            "shortRange": false,
+            "scale": 0.6
+        }
+    },
+    "ATM2": {
+        "sprite": 207,
+        "position": {
+            "x": 313.59539794921875,
+            "y": -278.8630676269531,
+            "z": 54.1707878112793
+        },
+        "options": {
+            "name": "ATM",
+            "color": 2,
+            "shortRange": false,
+            "scale": 0.6
+        }
+    },
+    "ATM3": {
+        "sprite": 207,
+        "position": {
+            "x": 119.03710174560547,
+            "y": -883.9938354492188,
+            "z": 31.12306022644043
+        },
+        "options": {
+            "name": "ATM",
+            "color": 2,
+            "shortRange": false,
+            "scale": 0.6
+        }
+    },
+    "ATM4": {
+        "sprite": 207,
+        "position": {
+            "x": 149.65414428710938,
+            "y": -1040.640625,
+            "z": 29.373973846435547
+        },
+        "options": {
+            "name": "ATM",
+            "color": 2,
+            "shortRange": false,
+            "scale": 0.6
+        }
     }
 }

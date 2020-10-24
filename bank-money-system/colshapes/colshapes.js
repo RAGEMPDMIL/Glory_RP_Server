@@ -1,5 +1,3 @@
-const db = require('../../modules/db');
-
 const moneySystemColshapes = require('./colshapes-data.json');
 const availableColshapes = [];
 
@@ -11,9 +9,8 @@ Object.keys(moneySystemColshapes).forEach((value) => {
 mp.events.add("playerEnterColshape", async (player, colshape) => {
     if (availableColshapes.includes(colshape)) {
         player.inBank = true;
-        player.outputChatBox(`Welcome back to the Maze Bank`);
-        player.notify('Press <font color="#00ff00">E</font> to interace with your bank account');
         player.call('client:moneySystem:moneyUIAvailable');
+        player.notify('Press <font color="#00ff00">E</font> to interace with your bank account');
     }
 });
 
