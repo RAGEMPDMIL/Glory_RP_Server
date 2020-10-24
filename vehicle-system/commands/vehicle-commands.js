@@ -28,30 +28,38 @@ mp.events.addCommand('buyvehicle', async(player,fullText,vehname) => {
     }
     else
     {
+        const playerHaveVehicle = await checkPlayerVehicle(player,vehname);
         const result = await moneySystemFunctions.playerChangeBank(player, Number(vehPrice));
-        player.bank = player.bank-vehPrice;
-        player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
-
-        await createPlayerVehicle(player,vehname,vehicles[selectedVehicle].hash);
-        console.log("vehicle created");
-        console.log(player.vehhash);
-        if (player.vehname && mp.vehicles.toArray().length > 0) {
-            const destroyVehicle = mp.vehicles.toArray().find((v) => {
-                return v === player.vehname;
-            });
-    
-            destroyVehicle.destroy();
-        }
-        const playerPos = player.position;
-        player.vehname = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
-            numberPlate: `${player.name}`,
-            color: [
-                [0, 0, 0],
-                [0, 0, 0]
-            ]
-        });
-        player.putIntoVehicle(player.vehname, 0);
-        player.notify(`~g~you bought ${vehname} with!`);
+        try {
+            if(playerHaveVehicle) {
+                return projectFunctions.showErrorChat(player,'לא תוכל לקנות את אותו רכב פעמיים');
+            }
+            else {
+                player.bank = player.bank-vehPrice;
+                player.call('client:playerHud:setMoneyInfo', [player.bank, player.wallet]);
+        
+                await createPlayerVehicle(player,vehname,vehicles[selectedVehicle].hash);
+                console.log("vehicle created");
+                console.log(player.vehhash);
+                if (player.vehname && mp.vehicles.toArray().length > 0) {
+                    const destroyVehicle = mp.vehicles.toArray().find((v) => {
+                        return v === player.vehname;
+                    });
+            
+                    destroyVehicle.destroy();
+                }
+                const playerPos = player.position;
+                player.vehname = mp.vehicles.new(vehicles[selectedVehicle].hash, playerPos, {
+                    numberPlate: `${player.name}`,
+                    color: [
+                        [0, 0, 0],
+                        [0, 0, 0]
+                    ]
+                });
+                player.putIntoVehicle(player.vehname, 0);
+                player.notify(`~g~you bought ${vehname} with!`);
+            }
+        } catch(e) { console.log(e); }
     }
 
 });
@@ -59,29 +67,34 @@ mp.events.addCommand('vcall', async (player,fullText,vehname) => {
 
     if(!vehname) return projectFunctions.showErrorChat(player,'/vcall [veh name]');
     const vehicleDetails = await getPVehicleDetails(player,vehname);
-    if(!vehicleDetails[0]){
-        return projectFunctions.showErrorChat(player,'אין רכב כזה בבעלותך');
+    try {
+        console.log("print" + vehicleDetails);
+        if(!vehicleDetails){
+            return projectFunctions.showErrorChat(player,'אין רכב כזה בבעלותך');
+        }
+        else {
+            player.vehhash = vehicleDetails;
+            console.log(player.vehhash);
+            const playerPos = player.position;
+            if (player.vehname && mp.vehicles.toArray().length > 0) {
+                const destroyVehicle = mp.vehicles.toArray().find((v) => {
+                    return v === player.vehname;
+                });
+    
+                destroyVehicle.destroy();
+            }
+            player.vehname = mp.vehicles.new(player.vehhash, playerPos, {
+                numberPlate: `${player.name}`,
+                color: [
+                    [0, 0, 0],
+                    [0, 0, 0]
+                ]
+            });
+            player.putIntoVehicle(player.vehname, 0);
+            player.notify("~g~you called your car !");
+        }
     }
-
-    player.vehhash = vehicleDetails[0];
-    console.log(player.vehhash);
-    const playerPos = player.position;
-    if (player.vehname && mp.vehicles.toArray().length > 0) {
-        const destroyVehicle = mp.vehicles.toArray().find((v) => {
-            return v === player.vehname;
-        });
-
-        destroyVehicle.destroy();
-    }
-    player.vehname = mp.vehicles.new(player.vehhash, playerPos, {
-        numberPlate: `${player.name}`,
-        color: [
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-    });
-    player.putIntoVehicle(player.vehname, 0);
-    player.notify("~g~you called your car !");
+    catch(e) { console.log(e); }
 });
 // - - - - - - - - Admin Vehicle Commands - - - - - - - - //
 
@@ -211,14 +224,38 @@ async function createPlayerVehicle(player, vehicle, hash) {
         {console.log(e);}
     });
 }
+
+async function checkPlayerVehicle(player,vehname) {
+    return new Promise(function (resolve){
+        try {
+            db.query('SELECT `vehicle` FROM `vehicles` WHERE BINARY `owner` = ?', [player.name,vehname], function(err, result, rows){
+                if(err) { console.log(err);
+                } else {
+                    if (result.length != 0){
+                        resolve(true);
+                    }else {
+                        resolve(false);
+                    }
+                }
+            });
+        } catch(e) {console.log(e);}
+    });
+};
+
 async function getPVehicleDetails(player,vehname) {
     return new Promise(function (resolve){
         try {
             db.query('SELECT `hash` FROM `vehicles` WHERE BINARY `owner` = ? AND `vehicle` = ?', [player.name,vehname], function(err, result, rows){
                 if(err) {
                     console.log(err);
+                } else {
+                    if (result.length != 0)
+                    {
+                        resolve(result[0].hash);
+                    }else {
+                        resolve(false);
+                    }
                 }
-                resolve([result[0].hash]);
             });
         } catch(e) {console.log(e);}
     });

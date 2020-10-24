@@ -76,6 +76,8 @@ mp.events.addCommand('getpos', async (player) => {
         return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');
     }
     player.outputChatBox(`!{#FF7D3C}(${player.position})!{#FFFFFF} :המיקום שלך הוא`);
+    console.log(player.position);
+    console.log(player.heading);
 });
 
 mp.events.addCommand('sethp' , async(player,fullText,playerid,health) => {

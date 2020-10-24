@@ -38,7 +38,7 @@ require('./events');
 
 // Vehicle System
 require('./vehicle-system/commands/vehicle-commands');
-
+require('./vehicle-system/cardealerships/regularshop/spawnvehicles');
 // Bank Money System
 require('./bank-money-system/events/bank-money-system-events');
 require('./bank-money-system/commands/bank-money-commands');
