@@ -70,7 +70,6 @@ mp.events.addCommand('gotopos', async (player, fullText, x, y, z) => {
 });
 
 mp.events.addCommand('getpos', async (player) => {
-    console.log(player.position);
     var aLevel = await this.getAdminLevel(player.name);
     if (aLevel < 1){
         return projectFunctions.showErrorChat(player,'אינך יכול להשתמש בפקודה זו');

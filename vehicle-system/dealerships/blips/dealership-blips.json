@@ -1,0 +1,15 @@
+{
+    "LowEnd": {
+        "sprite": 225,
+        "position": {
+            "x": -41.083744049072266,
+            "y": -1097.482666015625,
+            "z": 26.422353744506836
+        },
+        "options": {
+            "name": "Low End Car Dealership",
+            "color": 38,
+            "shortRange": false
+        }
+    }
+}

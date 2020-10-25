@@ -1,8 +1,17 @@
 {
     "Vehicles": {
         "mazda-rx7": {
+            "name": "Mazda RX7",
             "hash": "rx7cwest",
-            "price": 300000,
+            "price": 150000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -48.00988006591797,
+                "y": -1101.748291015625,
+                "z": 26.422344207763672,
+                "heading" : 121.8971939086914
+            },
             "colors": {
 
             },
@@ -11,8 +20,17 @@
             }
         },
         "leon": {
+            "name": "Seat Leon",
             "hash": "seatl",
-            "price": 50000,
+            "price": 30000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -50.82921600341797,
+                "y": -1090.202880859375,
+                "z": 26.422338485717773,
+                "heading" : 161.14479064941406
+            },
             "colors": {
 
             },
@@ -21,8 +39,17 @@
             }
         },
         "ftype": {
+            "name": "Jaguar FTYPE",
             "hash": "FtypeC",
-            "price": 1000000,
+            "price": 70000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -46.714351654052734,
+                "y": -1091.8824462890625,
+                "z": 26.422344207763672,
+                "heading" : 158.89306640625
+            },
             "colors": {
 
             },
@@ -31,8 +58,17 @@
             }
         },
         "bugatti-chiron": {
+            "name": "Bugatti Chiron",
             "hash": "2019chiron",
             "price": 10000000,
+            "amount": 0,
+            "dealership": {
+                "type": "luxury",
+                "x": -56.8252,
+                "y": -1097.5540,
+                "z": 25.9583,
+                "heading" : 120
+            },
             "colors": {
 
             },
@@ -41,8 +77,17 @@
             }
         },
         "mercedes-s500": {
+            "name": "Mercedes S500",
             "hash": "s500w222",
             "price": 1000000,
+            "amount": 0,
+            "dealership": {
+                "type": "high-end",
+                "x": -56.8252,
+                "y": -1097.5540,
+                "z": 25.9583,
+                "heading" : 120
+            },
             "colors": {
 
             },
@@ -51,8 +96,17 @@
             }
         },
         "tesla-x": {
+            "name": "Tesla Model X",
             "hash": "teslax",
-            "price": 2000000,
+            "price": 50000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -43.30051803588867,
+                "y": -1092.6695556640625,
+                "z": 26.422344207763672,
+                "heading" : 158.0508270263672
+            },
             "colors": {
 
             },
@@ -61,8 +115,17 @@
             }
         },
         "bmw-m5": {
+            "name": "BMW M5",
             "hash": "m5e60",
             "price": 5000000,
+            "amount": 0,
+            "dealership": {
+                "type": "high-end",
+                "x": -56.8252,
+                "y": -1097.5540,
+                "z": 25.9583,
+                "heading" : 120
+            },
             "colors": {
 
             },
@@ -71,8 +134,17 @@
             }
         },
         "audi-r8": {
+            "name": "Audi R8",
             "hash": "r820",
             "price": 5000000,
+            "amount": 0,
+            "dealership": {
+                "type": "luxury",
+                "x": -56.8252,
+                "y": -1097.5540,
+                "z": 25.9583,
+                "heading" : 120
+            },
             "colors": {
 
             },
@@ -81,16 +153,34 @@
             }
         },
         "tesla-s": {
+            "name": "Tesla Model S",
             "hash": "models",
-            "price": 5000000,
+            "price": 55000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -55.69072341918945,
+                "y": -1097.234130859375,
+                "z": 26.422348022460938,
+                "heading" : 107.16644287109375
+            },
             "colors": {
 
             },
             "mods": {}
         },
         "corvette-zr1": {
+            "name": "Corvette ZR1",
             "hash": "2019zr1",
             "price": 5000000,
+            "amount": 0,
+            "dealership": {
+                "type": "high-end",
+                "x": -56.8252,
+                "y": -1097.5540,
+                "z": 25.9583,
+                "heading" : 120
+            },
             "colors": {
 
             },
@@ -99,8 +189,17 @@
             }
         },
         "lamborghini-centenario": {
+            "name": "Lamborghini Centenario",
             "hash": "lp770",
             "price": 5000000,
+            "amount": 0,
+            "dealership": {
+                "type": "luxury",
+                "x": -56.8252,
+                "y": -1097.5540,
+                "z": 25.9583,
+                "heading" : 120
+            },
             "colors": {
 
             },
@@ -109,8 +208,17 @@
             }
         },
         "vw-beetle": {
+            "name": "Volkswagen Beetle",
             "hash": "cox2013",
-            "price": 5000000,
+            "price": 25000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -39.7545166015625,
+                "y": -1100.0323486328125,
+                "z": 26.422344207763672,
+                "heading" : 63.4153938293457
+            },
             "colors": {
 
             },
@@ -119,8 +227,17 @@
             }
         },
         "vw-golf": {
+            "name": "Volkswagen Golf R",
             "hash": "golf7r",
-            "price": 5000000,
+            "price": 40000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -40.550167083740234,
+                "y": -1094.1678466796875,
+                "z": 26.422344207763672,
+                "heading" : 149.3876953125
+            },
             "colors": {
 
             },
@@ -129,8 +246,17 @@
             }
         },
         "fiat-spider": {
+            "name": "Fiat Spider",
             "hash": "124spider",
-            "price": 5000000,
+            "price": 90000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -16.230876922607422,
+                "y": -1078.5343017578125,
+                "z": 26.67205238342285,
+                "heading" : 124.08588409423828
+            },
             "colors": {
 
             },
@@ -139,8 +265,17 @@
             }
         },
         "mini-cooper": {
+            "name": "Mini Cooper",
             "hash": "cooperworks",
-            "price": 5000000,
+            "price": 60000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -13.968033790588379,
+                "y": -1079.999755859375,
+                "z": 26.672054290771484,
+                "heading" : 125.11721801757812
+            },
             "colors": {
 
             },
@@ -149,8 +284,17 @@
             }
         },
         "toyota-yaris": {
+            "name": "Toyota Yaris",
             "hash": "yaris08",
-            "price": 5000000,
+            "price": 20000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -10.987186431884766,
+                "y": -1080.446533203125,
+                "z": 26.676090240478516,
+                "heading" : 125.95372009277344
+            },
             "colors": {
 
             },
@@ -159,8 +303,17 @@
             }
         },
         "hyundai-sonata": {
+            "name": "Hyundai Sonata",
             "hash": "sonatayfc",
-            "price": 5000000,
+            "price": 25000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -7.502538681030273,
+                "y": -1081.309814453125,
+                "z": 26.672069549560547,
+                "heading" : 115.44567108154297
+            },
             "colors": {
 
             },
@@ -169,8 +322,17 @@
             }
         },
         "skoda-karoq": {
+            "name": "Skoda Karoq",
             "hash": "karoq",
-            "price": 5000000,
+            "price": 30000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -8.665042877197266,
+                "y": -1096.449462890625,
+                "z": 26.67207145690918,
+                "heading" : 96.3547134399414
+            },
             "colors": {
 
             },
@@ -179,8 +341,17 @@
             }
         },
         "nissan-270r": {
+            "name": "Nissan 270R",
             "hash": "Nismo270R",
-            "price": 5000000,
+            "price": 55000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -9.605846405029297,
+                "y": -1099.2841796875,
+                "z": 26.672069549560547,
+                "heading" : 97.19696044921875
+            },
             "colors": {
 
             },
@@ -189,8 +360,17 @@
             }
         },
         "toyota-tundra": {
+            "name": "Toyota Thundra",
             "hash": "19tundra",
-            "price": 5000000,
+            "price": 35000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -11.393743515014648,
+                "y": -1102.5528564453125,
+                "z": 26.672069549560547,
+                "heading" : 90.69390869140625
+            },
             "colors": {
 
             },
@@ -199,8 +379,17 @@
             }
         },
         "toyota-4runner": {
+            "name": "Toyota 4Runner",
             "hash": "4runner",
-            "price": 5000000,
+            "price": 40000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -12.416507720947266,
+                "y": -1105.4486083984375,
+                "z": 26.672069549560547,
+                "heading" : 93.06595611572266
+            },
             "colors": {
 
             },
@@ -209,8 +398,17 @@
             }
         },
         "toyota-chr": {
+            "name": "Toyota CHR",
             "hash": "chr",
-            "price": 5000000,
+            "price": 22000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -13.202363014221191,
+                "y": -1107.963134765625,
+                "z": 26.672069549560547,
+                "heading" : 94.3608169555664
+            },
             "colors": {
 
             },
@@ -219,8 +417,17 @@
             }
         },
         "ford-focus-rs": {
+            "name": "Ford Focus RS",
             "hash": "focusrs",
-            "price": 5000000,
+            "price": 60000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -45.07349395751953,
+                "y": -1070.627197265625,
+                "z": 27.545534133911133,
+                "heading" : -113.94942474365234
+            },
             "colors": {
 
             },
@@ -229,8 +436,17 @@
             }
         },
         "dodge-charger": {
+            "name": "Dodge Charger",
             "hash": "16charger",
-            "price": 5000000,
+            "price": 140000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -38.57736587524414,
+                "y": -1073.2218017578125,
+                "z": 27.545534133911133,
+                "heading" : -104.35811614990234
+            },
             "colors": {
 
             },
@@ -239,8 +455,17 @@
             }
         },
         "dodge-challenger": {
+            "name": "Dodge Challenger",
             "hash": "16challenger",
-            "price": 5000000,
+            "price": 135000,
+            "amount": -1,
+            "dealership": {
+                "type": "low-end",
+                "x": -33.10416030883789,
+                "y": -1074.736572265625,
+                "z": 27.545534133911133,
+                "heading" : -115.68548583984375
+            },
             "colors": {
 
             },

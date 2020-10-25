@@ -1,8 +1,7 @@
 // - - - - - - - - Requires - - - - - - - - //
-
 const db = require('../../modules/db');
 
-const vehicles = require('../data/vehicle-data.json').Vehicles;
+const vehicles = require('../data/vehicle-data').Vehicles;
 const adminLevel = require('../../admin-system/commands');
 
 const projectFunctions = require('../../utils/functions-utils');

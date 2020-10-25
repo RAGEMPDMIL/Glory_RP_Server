@@ -24,6 +24,7 @@ require('./world/weather/weather');
 
 // Map Blips
 require('./bank-money-system/blips/blips');
+require('./vehicle-system/dealerships/blips/dealership-blips');
 
 // Map Colshapes
 require('./bank-money-system/colshapes/colshapes');
@@ -38,7 +39,9 @@ require('./events');
 
 // Vehicle System
 require('./vehicle-system/commands/vehicle-commands');
-require('./vehicle-system/cardealerships/regularshop/spawnvehicles');
+require('./vehicle-system/data/vehicles-data');
+const vehicleUtils = require('./vehicle-system/util/vehicle-system-functions');
+
 // Bank Money System
 require('./bank-money-system/events/bank-money-system-events');
 require('./bank-money-system/commands/bank-money-commands');
@@ -53,5 +56,6 @@ const server = require('./server-status/server');
 // Wait for everything to load, then allow connections once all is loaded
 (async () => {
     await server.setAllOffline();
+    await vehicleUtils.initVehicleSystem();
     mp.events.delayInitialization = false; //  Players cannot join until this is false
 })();
